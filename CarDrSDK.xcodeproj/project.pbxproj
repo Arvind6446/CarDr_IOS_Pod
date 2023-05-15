@@ -1,0 +1,676 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		ABD452E3AD6FF69D8C984A14 /* Pods_CarDrSDK_CarDrSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C29AC9D716E90DD4A3AAE2EB /* Pods_CarDrSDK_CarDrSDKTests.framework */; };
+		D796B42A0F072DC92C67504F /* Pods_CarDrSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8045DF8C1CD7F4EB83E13370 /* Pods_CarDrSDK.framework */; };
+		E275400729F2FE7700774987 /* CarDrSDK.docc in Sources */ = {isa = PBXBuildFile; fileRef = E275400629F2FE7700774987 /* CarDrSDK.docc */; };
+		E275400D29F2FE7700774987 /* CarDrSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E275400229F2FE7700774987 /* CarDrSDK.framework */; };
+		E275401229F2FE7700774987 /* CarDrSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275401129F2FE7700774987 /* CarDrSDKTests.swift */; };
+		E275401329F2FE7700774987 /* CarDrSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E275400529F2FE7700774987 /* CarDrSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E275402429F2FF0400774987 /* CarDrConnectionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402329F2FF0400774987 /* CarDrConnectionApi.swift */; };
+		E275402C29F2FF2B00774987 /* CDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402629F2FF2B00774987 /* CDUser.swift */; };
+		E275402D29F2FF2B00774987 /* CDUserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402729F2FF2B00774987 /* CDUserAccount.swift */; };
+		E275402E29F2FF2B00774987 /* CDCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402829F2FF2B00774987 /* CDCallback.swift */; };
+		E275402F29F2FF2B00774987 /* CDAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402929F2FF2B00774987 /* CDAPI.swift */; };
+		E275403029F2FF2B00774987 /* CDScanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402A29F2FF2B00774987 /* CDScanResponse.swift */; };
+		E275403129F2FF2B00774987 /* CDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402B29F2FF2B00774987 /* CDDevice.swift */; };
+		E2B5F9FD2A0E963C0072E144 /* VoyoAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E2B5F9FB2A0E96340072E144 /* VoyoAPI.framework */; };
+		E2B5F9FE2A0E963C0072E144 /* VoyoAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E2B5F9FB2A0E96340072E144 /* VoyoAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E2B6D0DC29FC031B008CAC1C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E2B6D0DB29FC031B008CAC1C /* Alamofire */; };
+		E2B6D10129FC1B63008CAC1C /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E2B6D10029FC1B63008CAC1C /* SwiftyJSON */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E275400E29F2FE7700774987 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E2753FF929F2FE7700774987 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E275400129F2FE7700774987;
+			remoteInfo = CarDrSDK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E2B5F9FF2A0E963C0072E144 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E2B5F9FE2A0E963C0072E144 /* VoyoAPI.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		2E7B54F4D391636C0211D574 /* Pods-CarDrSDK-CarDrSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarDrSDK-CarDrSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-CarDrSDK-CarDrSDKTests/Pods-CarDrSDK-CarDrSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8045DF8C1CD7F4EB83E13370 /* Pods_CarDrSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarDrSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B46CE43D0F485812DFA35EA1 /* Pods-CarDrSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarDrSDK.debug.xcconfig"; path = "Target Support Files/Pods-CarDrSDK/Pods-CarDrSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		B57313620384E3B0874ED46F /* Pods-CarDrSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarDrSDK.release.xcconfig"; path = "Target Support Files/Pods-CarDrSDK/Pods-CarDrSDK.release.xcconfig"; sourceTree = "<group>"; };
+		C29AC9D716E90DD4A3AAE2EB /* Pods_CarDrSDK_CarDrSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CarDrSDK_CarDrSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E275400229F2FE7700774987 /* CarDrSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CarDrSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E275400529F2FE7700774987 /* CarDrSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CarDrSDK.h; sourceTree = "<group>"; };
+		E275400629F2FE7700774987 /* CarDrSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = CarDrSDK.docc; sourceTree = "<group>"; };
+		E275400C29F2FE7700774987 /* CarDrSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CarDrSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E275401129F2FE7700774987 /* CarDrSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDrSDKTests.swift; sourceTree = "<group>"; };
+		E275401D29F2FEA900774987 /* VoyoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VoyoAPI.framework; path = ../../Downloads/VoyoAPI.framework; sourceTree = "<group>"; };
+		E275402329F2FF0400774987 /* CarDrConnectionApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarDrConnectionApi.swift; sourceTree = "<group>"; };
+		E275402629F2FF2B00774987 /* CDUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDUser.swift; sourceTree = "<group>"; };
+		E275402729F2FF2B00774987 /* CDUserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDUserAccount.swift; sourceTree = "<group>"; };
+		E275402829F2FF2B00774987 /* CDCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDCallback.swift; sourceTree = "<group>"; };
+		E275402929F2FF2B00774987 /* CDAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDAPI.swift; sourceTree = "<group>"; };
+		E275402A29F2FF2B00774987 /* CDScanResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDScanResponse.swift; sourceTree = "<group>"; };
+		E275402B29F2FF2B00774987 /* CDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDevice.swift; sourceTree = "<group>"; };
+		E2B5F9FB2A0E96340072E144 /* VoyoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = VoyoAPI.framework; sourceTree = "<group>"; };
+		F0AF94E162A8C7CAC0D67C8F /* Pods-CarDrSDK-CarDrSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarDrSDK-CarDrSDKTests.release.xcconfig"; path = "Target Support Files/Pods-CarDrSDK-CarDrSDKTests/Pods-CarDrSDK-CarDrSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E2753FFF29F2FE7700774987 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2B5F9FD2A0E963C0072E144 /* VoyoAPI.framework in Frameworks */,
+				E2B6D0DC29FC031B008CAC1C /* Alamofire in Frameworks */,
+				E2B6D10129FC1B63008CAC1C /* SwiftyJSON in Frameworks */,
+				D796B42A0F072DC92C67504F /* Pods_CarDrSDK.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E275400929F2FE7700774987 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E275400D29F2FE7700774987 /* CarDrSDK.framework in Frameworks */,
+				ABD452E3AD6FF69D8C984A14 /* Pods_CarDrSDK_CarDrSDKTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0E7CE8A3AD915B1B2AD70E04 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B46CE43D0F485812DFA35EA1 /* Pods-CarDrSDK.debug.xcconfig */,
+				B57313620384E3B0874ED46F /* Pods-CarDrSDK.release.xcconfig */,
+				2E7B54F4D391636C0211D574 /* Pods-CarDrSDK-CarDrSDKTests.debug.xcconfig */,
+				F0AF94E162A8C7CAC0D67C8F /* Pods-CarDrSDK-CarDrSDKTests.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E2753FF829F2FE7700774987 = {
+			isa = PBXGroup;
+			children = (
+				E275400429F2FE7700774987 /* CarDrSDK */,
+				E275401029F2FE7700774987 /* CarDrSDKTests */,
+				E275400329F2FE7700774987 /* Products */,
+				E275401C29F2FEA900774987 /* Frameworks */,
+				0E7CE8A3AD915B1B2AD70E04 /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		E275400329F2FE7700774987 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E275400229F2FE7700774987 /* CarDrSDK.framework */,
+				E275400C29F2FE7700774987 /* CarDrSDKTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E275400429F2FE7700774987 /* CarDrSDK */ = {
+			isa = PBXGroup;
+			children = (
+				E2B5F9FB2A0E96340072E144 /* VoyoAPI.framework */,
+				E275402529F2FF1C00774987 /* model */,
+				E275402329F2FF0400774987 /* CarDrConnectionApi.swift */,
+				E275400529F2FE7700774987 /* CarDrSDK.h */,
+				E275400629F2FE7700774987 /* CarDrSDK.docc */,
+			);
+			path = CarDrSDK;
+			sourceTree = "<group>";
+		};
+		E275401029F2FE7700774987 /* CarDrSDKTests */ = {
+			isa = PBXGroup;
+			children = (
+				E275401129F2FE7700774987 /* CarDrSDKTests.swift */,
+			);
+			path = CarDrSDKTests;
+			sourceTree = "<group>";
+		};
+		E275401C29F2FEA900774987 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E275401D29F2FEA900774987 /* VoyoAPI.framework */,
+				8045DF8C1CD7F4EB83E13370 /* Pods_CarDrSDK.framework */,
+				C29AC9D716E90DD4A3AAE2EB /* Pods_CarDrSDK_CarDrSDKTests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E275402529F2FF1C00774987 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				E275402929F2FF2B00774987 /* CDAPI.swift */,
+				E275402829F2FF2B00774987 /* CDCallback.swift */,
+				E275402B29F2FF2B00774987 /* CDDevice.swift */,
+				E275402A29F2FF2B00774987 /* CDScanResponse.swift */,
+				E275402629F2FF2B00774987 /* CDUser.swift */,
+				E275402729F2FF2B00774987 /* CDUserAccount.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		E2753FFD29F2FE7700774987 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E275401329F2FE7700774987 /* CarDrSDK.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		E275400129F2FE7700774987 /* CarDrSDK */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E275401629F2FE7700774987 /* Build configuration list for PBXNativeTarget "CarDrSDK" */;
+			buildPhases = (
+				26E560CC8FF9977F880AD376 /* [CP] Check Pods Manifest.lock */,
+				E2753FFD29F2FE7700774987 /* Headers */,
+				E2753FFE29F2FE7700774987 /* Sources */,
+				E2753FFF29F2FE7700774987 /* Frameworks */,
+				E275400029F2FE7700774987 /* Resources */,
+				E2B5F9FF2A0E963C0072E144 /* Embed Frameworks */,
+				E2B5FA002A0EB1600072E144 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CarDrSDK;
+			packageProductDependencies = (
+				E2B6D0DB29FC031B008CAC1C /* Alamofire */,
+				E2B6D10029FC1B63008CAC1C /* SwiftyJSON */,
+			);
+			productName = CarDrSDK;
+			productReference = E275400229F2FE7700774987 /* CarDrSDK.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		E275400B29F2FE7700774987 /* CarDrSDKTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E275401929F2FE7700774987 /* Build configuration list for PBXNativeTarget "CarDrSDKTests" */;
+			buildPhases = (
+				CC79597E848F89745B07FD75 /* [CP] Check Pods Manifest.lock */,
+				E275400829F2FE7700774987 /* Sources */,
+				E275400929F2FE7700774987 /* Frameworks */,
+				E275400A29F2FE7700774987 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E275400F29F2FE7700774987 /* PBXTargetDependency */,
+			);
+			name = CarDrSDKTests;
+			productName = CarDrSDKTests;
+			productReference = E275400C29F2FE7700774987 /* CarDrSDKTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E2753FF929F2FE7700774987 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					E275400129F2FE7700774987 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					E275400B29F2FE7700774987 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = E2753FFC29F2FE7700774987 /* Build configuration list for PBXProject "CarDrSDK" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E2753FF829F2FE7700774987;
+			packageReferences = (
+				E2B6D0DA29FC031B008CAC1C /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E2B6D0FF29FC1B63008CAC1C /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
+			);
+			productRefGroup = E275400329F2FE7700774987 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E275400129F2FE7700774987 /* CarDrSDK */,
+				E275400B29F2FE7700774987 /* CarDrSDKTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E275400029F2FE7700774987 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E275400A29F2FE7700774987 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		26E560CC8FF9977F880AD376 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarDrSDK-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CC79597E848F89745B07FD75 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CarDrSDK-CarDrSDKTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E2B5FA002A0EB1600072E144 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "echo \"Target architectures: $ARCHS\"\n\nAPP_PATH=\"${TARGET_BUILD_DIR}/${WRAPPER_NAME}\"\n\nfind \"$APP_PATH\" -name '*.framework' -type d | while read -r FRAMEWORK\ndo\nFRAMEWORK_EXECUTABLE_NAME=$(defaults read \"$FRAMEWORK/Info.plist\" CFBundleExecutable)\nFRAMEWORK_EXECUTABLE_PATH=\"$FRAMEWORK/$FRAMEWORK_EXECUTABLE_NAME\"\necho \"Executable is $FRAMEWORK_EXECUTABLE_PATH\"\necho $(lipo -info \"$FRAMEWORK_EXECUTABLE_PATH\")\n\nFRAMEWORK_TMP_PATH=\"$FRAMEWORK_EXECUTABLE_PATH-tmp\"\n\n# remove simulator's archs if location is not simulator's directory\ncase \"${TARGET_BUILD_DIR}\" in\n*\"iphonesimulator\")\n    echo \"No need to remove archs\"\n    ;;\n*)\n    if $(lipo \"$FRAMEWORK_EXECUTABLE_PATH\" -verify_arch \"i386\") ; then\n    lipo -output \"$FRAMEWORK_TMP_PATH\" -remove \"i386\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n    echo \"i386 architecture removed\"\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_TMP_PATH\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n    fi\n    if $(lipo \"$FRAMEWORK_EXECUTABLE_PATH\" -verify_arch \"x86_64\") ; then\n    lipo -output \"$FRAMEWORK_TMP_PATH\" -remove \"x86_64\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n    echo \"x86_64 architecture removed\"\n    rm \"$FRAMEWORK_EXECUTABLE_PATH\"\n    mv \"$FRAMEWORK_TMP_PATH\" \"$FRAMEWORK_EXECUTABLE_PATH\"\n    fi\n    ;;\nesac\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E2753FFE29F2FE7700774987 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E275403129F2FF2B00774987 /* CDDevice.swift in Sources */,
+				E275402C29F2FF2B00774987 /* CDUser.swift in Sources */,
+				E275402E29F2FF2B00774987 /* CDCallback.swift in Sources */,
+				E275402D29F2FF2B00774987 /* CDUserAccount.swift in Sources */,
+				E275403029F2FF2B00774987 /* CDScanResponse.swift in Sources */,
+				E275400729F2FE7700774987 /* CarDrSDK.docc in Sources */,
+				E275402429F2FF0400774987 /* CarDrConnectionApi.swift in Sources */,
+				E275402F29F2FF2B00774987 /* CDAPI.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E275400829F2FE7700774987 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E275401229F2FE7700774987 /* CarDrSDKTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E275400F29F2FE7700774987 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E275400129F2FE7700774987 /* CarDrSDK */;
+			targetProxy = E275400E29F2FE7700774987 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		E275401429F2FE7700774987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E275401529F2FE7700774987 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		E275401729F2FE7700774987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B46CE43D0F485812DFA35EA1 /* Pods-CarDrSDK.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = XQ7B46369U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CarDrSDK",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardr.CarDrSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E275401829F2FE7700774987 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B57313620384E3B0874ED46F /* Pods-CarDrSDK.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = XQ7B46369U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/CarDrSDK",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardr.CarDrSDK;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E275401A29F2FE7700774987 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E7B54F4D391636C0211D574 /* Pods-CarDrSDK-CarDrSDKTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XQ7B46369U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardr.CarDrSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E275401B29F2FE7700774987 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F0AF94E162A8C7CAC0D67C8F /* Pods-CarDrSDK-CarDrSDKTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = XQ7B46369U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.cardr.CarDrSDKTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E2753FFC29F2FE7700774987 /* Build configuration list for PBXProject "CarDrSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E275401429F2FE7700774987 /* Debug */,
+				E275401529F2FE7700774987 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E275401629F2FE7700774987 /* Build configuration list for PBXNativeTarget "CarDrSDK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E275401729F2FE7700774987 /* Debug */,
+				E275401829F2FE7700774987 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E275401929F2FE7700774987 /* Build configuration list for PBXNativeTarget "CarDrSDKTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E275401A29F2FE7700774987 /* Debug */,
+				E275401B29F2FE7700774987 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E2B6D0DA29FC031B008CAC1C /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+		E2B6D0FF29FC1B63008CAC1C /* XCRemoteSwiftPackageReference "SwiftyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftyJSON/SwiftyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E2B6D0DB29FC031B008CAC1C /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2B6D0DA29FC031B008CAC1C /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		E2B6D10029FC1B63008CAC1C /* SwiftyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E2B6D0FF29FC1B63008CAC1C /* XCRemoteSwiftPackageReference "SwiftyJSON" */;
+			productName = SwiftyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = E2753FF929F2FE7700774987 /* Project object */;
+}
