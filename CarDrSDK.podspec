@@ -80,7 +80,7 @@ Pod::Spec.new do |spec|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  spec.source       = { :git => "https://github.com/CarDr-com/CarDr-iOS-OBDScan-SDK.git",:branch => 'master', :tag => "0.0.1" }
+  spec.source       = { :git => "https://github.com/Arvind6446/CarDr_IOS_Pod.git",:branch => 'main', :tag => "0.0.1" }
 
    
 
@@ -120,7 +120,7 @@ Pod::Spec.new do |spec|
   #
 
    spec.framework  = "VoyoAPI"
-      spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '/Users/arvindmehta/Desktop/git/CarDr-iOS-OBDScan-SDK/CarDrSDK' ,'HEADER_SEARCH_PATHS' => 'https://github.com/Alamofire/Alamofire.git' 'https://github.com/SwiftyJSON/SwiftyJSON.git'}
+      spec.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '/Users/arvindmehta/Desktop/git/CarDr_IOS_Pod/CarDrSDK' ,'HEADER_SEARCH_PATHS' => 'https://github.com/Alamofire/Alamofire.git' 'https://github.com/SwiftyJSON/SwiftyJSON.git'}
   # spec.frameworks = "SomeFramework", "AnotherFramework"
 
   # spec.library   = "iconv"
