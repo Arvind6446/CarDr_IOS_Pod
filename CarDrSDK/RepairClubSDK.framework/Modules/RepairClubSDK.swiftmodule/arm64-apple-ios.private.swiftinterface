@@ -1,0 +1,2347 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 6.0.2 effective-5.10 (swiftlang-6.0.2.1.2 clang-1600.0.26.4)
+// swift-module-flags: -target arm64-apple-ios15.5 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name RepairClubSDK
+// swift-module-flags-ignorable: -no-verify-emitted-module-interface
+import Combine
+import CommonCrypto
+import CoreBluetooth
+import CoreLocation
+import CryptoKit
+import Foundation
+import PDFKit
+@_exported import RepairClubSDK
+import Security
+import Swift
+import SwiftUI
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+import zlib
+public struct ScanEntry : Swift.Codable, Swift.Identifiable, Swift.Hashable, Swift.Sendable {
+  public var id: Foundation.UUID
+  public var vehicle: RepairClubSDK.VehicleEntry
+  public var modules: [RepairClubSDK.ModuleItem]
+  public var date: Foundation.Date
+  public var progress: Swift.Double
+  public var started: Swift.Bool
+  public var complete: Swift.Bool
+  public var startTime: Foundation.Date?
+  public var endTime: Foundation.Date?
+  public var scanTime: Swift.Int?
+  public var status: RepairClubSDK.Status?
+  public var configType: Swift.String?
+  public var allTroubleCodes: [RepairClubSDK.TroubleCodeEntry] {
+    get
+  }
+  public var troubleCodeToModuleMap: [RepairClubSDK.TroubleCodeEntry : Swift.String] {
+    get
+  }
+  public var numberOfRespondedModules: Swift.Int {
+    get
+  }
+  public var elapsedTime: Foundation.TimeInterval? {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.ScanEntry, rhs: RepairClubSDK.ScanEntry) -> Swift.Bool
+  public var formattedDescription: Swift.String {
+    get
+  }
+  public var scanNarrative: Swift.String {
+    get
+  }
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.ScanEntry {
+  public func flattenCodesIntoCodeVINPair() -> [(code: RepairClubSDK.TroubleCodeEntry, vin: Swift.String)]
+}
+extension RepairClubSDK.ScanEntry {
+  public static func exampleScan() -> RepairClubSDK.ScanEntry
+}
+extension UIKit.UIViewController {
+  @_Concurrency.MainActor @preconcurrency public static let delayShort: Swift.Double
+  @_Concurrency.MainActor @preconcurrency public static let delayLong: Swift.Double
+  @_Concurrency.MainActor @preconcurrency public func showToast(_ text: Swift.String, delay: Foundation.TimeInterval = delayLong, action: (() -> Swift.Void)? = nil)
+}
+@_hasMissingDesignatedInitializers public class TesterFormData {
+  public var preFilledURL: Foundation.URL {
+    get
+  }
+  @objc deinit
+}
+public struct DeviceNickname : Swift.Codable {
+  public var id: Swift.String
+  public var nickname: Swift.String
+  public var lastUpdate: Foundation.Date
+  public init(id: Swift.String, nickname: Swift.String, lastUpdate: Foundation.Date)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum ProgressState : Swift.Sendable {
+  case nilScan
+  case notStarted
+  case started(progress: Swift.Double)
+  case complete(errors: [RepairClubSDK.ErrorEntry])
+}
+extension RepairClubSDK.ProgressState : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.ProgressState, rhs: RepairClubSDK.ProgressState) -> Swift.Bool
+}
+public enum ProgressInformation {
+  case notStarted
+  case started(information: Swift.String)
+  case complete
+}
+public struct VehicleInfoRequest {
+  public enum Reason {
+    case vinIncomplete
+    case vinMissing
+    case busMissing
+    case busConnectionTrouble
+    case noDevicesFound
+    case accessLocked
+    case vehicleInfoNotFound
+    case serverUnavailable
+    public static func == (a: RepairClubSDK.VehicleInfoRequest.Reason, b: RepairClubSDK.VehicleInfoRequest.Reason) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public let reason: RepairClubSDK.VehicleInfoRequest.Reason
+  public let completion: ((Swift.String?) -> Swift.Void)?
+  public init(reason: RepairClubSDK.VehicleInfoRequest.Reason, completion: ((Swift.String?) -> Swift.Void)? = nil)
+}
+public struct ConnectionEntry {
+  public var deviceFirmware: Swift.String?
+  public var deviceItem: RepairClubSDK.DeviceItem?
+  public var vin: Swift.String?
+  public var vehicleEntry: RepairClubSDK.VehicleEntry?
+  public var milOn: Swift.Bool?
+  public var bussesSyncedCount: Swift.Int
+  public var odometer: Swift.String?
+}
+public enum ConnectionState : Swift.Equatable {
+  case notStarted
+  case started
+  case completed
+  case failed(any Swift.Error)
+  case manuallyEntered
+  public static func == (lhs: RepairClubSDK.ConnectionState, rhs: RepairClubSDK.ConnectionState) -> Swift.Bool
+  public var succeeded: Swift.Bool {
+    get
+  }
+}
+public enum ConnectionStage : Swift.Equatable {
+  case deviceHandshake
+  case mainBusFound
+  case vinReceived
+  case vehicleDecoded
+  case configDownloaded
+  case busSyncedToConfig
+  case milChecking
+  case readinessMonitors
+  case supportedPIDsReceived
+  case supportedMIDsReceived
+  case odometerReceived
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.ConnectionStage, b: RepairClubSDK.ConnectionStage) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum AdvancedOperationType : Swift.String, Swift.Codable, Swift.Sendable {
+  case command, request, unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum ObdTypeExtended : Swift.String, Swift.Codable, Swift.Sendable {
+  case commNone
+  case commPassive
+  case commPassive11bit
+  case commPassive29bit
+  case commActive
+  case commActive11bit
+  case commActive29bit
+  case commOBD11bit
+  case commOBD11bitPhysical
+  case commOBD29bit
+  case commOBD29bitPhysical
+  case commAll
+  case unknown
+  public init(string: Swift.String) throws
+  public var deviceRepresentation: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum CANBusODBType : Swift.String, Swift.Codable, Swift.Sendable {
+  case functional
+  case physical
+  case iso_honda
+  case iso_std
+  case unknown
+  public init(string: Swift.String) throws
+  public var deviceRepresentation: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum BusType : Swift.String, Swift.Codable, Swift.Sendable {
+  case NO_BUS_FOUND
+  case CAN
+  case CAN_SW
+  case ISO
+  case ISO_SLOW_INIT
+  case KWP200_SLOW_INIT
+  case KWP200_FAST_INIT
+  case J1850
+  case J1850_VPW
+  case J1850_PWM
+  case J1708
+  case unknown
+  public init(string: Swift.String) throws
+  public var deviceRepresentation: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum replySidPidMatchEnum : Swift.String, Swift.Codable, Swift.Sendable {
+  case plus40
+  case even
+  case empty
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum FirmwareUpdateStatus : Swift.String {
+  case notStarted, starting, downloading, creatingBlocks, sending, stopped, complete, unknown
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct FirmwareProgress {
+  public var status: RepairClubSDK.FirmwareUpdateStatus
+  public var downloadedFirmware: Swift.Bool
+  public var createdBlocks: Swift.Bool
+  public var sentBlocks: Swift.Bool
+  public var blockTotal: Swift.Int
+  public var currentBlockNumber: Swift.Int
+  public var currentBlockChunkTotal: Swift.Int
+  public var currentBlockCurrentChunkNumber: Swift.Int
+  public var dataSent: Swift.Int
+  public var dataTotal: Swift.Int
+  public var firmwareVersion: Swift.String
+  public var firmwareDownloaded: Swift.Bool
+  public var waitingMessage: Swift.String
+}
+public enum FirmwareReleaseType : Swift.String, Swift.Codable, Swift.CaseIterable, Swift.Identifiable {
+  case alpha
+  case beta
+  case production
+  public var id: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [RepairClubSDK.FirmwareReleaseType]
+  public typealias ID = Swift.String
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [RepairClubSDK.FirmwareReleaseType] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct LiveFeedDatedEntry : Swift.Codable, Swift.Identifiable {
+  public var id: Foundation.UUID
+  public let pid: Swift.String
+  public let unit: Swift.String
+  public var date: Foundation.Date
+  public var values: [RepairClubSDK.PidItem]
+  public func lastTwentyValues() -> [RepairClubSDK.PidItem]
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct PidItem : Swift.Codable, Swift.Identifiable, Swift.Hashable, Swift.Comparable, Swift.Sendable {
+  public var id: Foundation.UUID
+  public var code: Swift.String
+  public var unit: Swift.String
+  public var date: Foundation.Date
+  public var value: Swift.Double
+  public init(id: Foundation.UUID = UUID(), code: Swift.String, unit: Swift.String, date: Foundation.Date, value: Swift.Double)
+  public static func == (lhs: RepairClubSDK.PidItem, rhs: RepairClubSDK.PidItem) -> Swift.Bool
+  public static func < (lhs: RepairClubSDK.PidItem, rhs: RepairClubSDK.PidItem) -> Swift.Bool
+  public func convertedUnit(shouldConvert: Swift.Bool) -> Swift.String
+  public func convertedValue(shouldConvert: Swift.Bool) -> Swift.Double
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct LiveFeedSessionEntry : Swift.Codable, Swift.Identifiable {
+  public let id: Swift.String
+  public let date: Foundation.Date
+  public let vin: Swift.String
+  public let entries: [RepairClubSDK.LiveFeedDatedEntry]
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ModuleItem : Swift.Identifiable, Swift.Codable, Swift.Hashable, Swift.Sendable {
+  public var id: Foundation.UUID
+  public var name: Swift.String
+  public var codes: [RepairClubSDK.TroubleCodeEntry]
+  public var responseStatus: RepairClubSDK.ResponseStatus
+  public var identifier: Swift.String
+  public var errors: [RepairClubSDK.ErrorEntry]
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.ModuleItem, rhs: RepairClubSDK.ModuleItem) -> Swift.Bool
+  public mutating func addTroubleCodeEntry(_ entry: RepairClubSDK.TroubleCodeEntry)
+  public var formattedDescription: Swift.String {
+    get
+  }
+  public mutating func updateResponseStatus(to newStatus: RepairClubSDK.ResponseStatus)
+  public mutating func addCodeAndUpdateResponseStatus(code: RepairClubSDK.TroubleCodeEntry?, newStatus: RepairClubSDK.ResponseStatus?)
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.ModuleItem {
+  public static var exampleModule: RepairClubSDK.ModuleItem {
+    get
+  }
+}
+public struct VehicleEntry : Swift.Codable, Swift.Identifiable, Swift.Hashable, Swift.Sendable {
+  public var id: Foundation.UUID
+  public var VIN: Swift.String
+  public var year: Swift.Int
+  public var make: Swift.String
+  public var makeID: Swift.Int?
+  public var model: Swift.String
+  public var modelID: Swift.Int?
+  public var engine: Swift.String
+  public var dateAdded: Foundation.Date
+  public var lastScanDate: Foundation.Date?
+  public var vehiclePowertrainType: RepairClubSDK.VehiclePowertrainType?
+  public var withDevice: Swift.Bool
+  public var manualVIN: Swift.Bool
+  public var manualData: Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.VehicleEntry, rhs: RepairClubSDK.VehicleEntry) -> Swift.Bool
+  public init(id: Foundation.UUID = UUID(), VIN: Swift.String, year: Swift.Int = 0, make: Swift.String = "", makeID: Swift.Int? = nil, model: Swift.String = "", modelID: Swift.Int? = nil, engine: Swift.String = "", dateAdded: Foundation.Date = Date(), lastScanDate: Foundation.Date? = nil, withDevice: Swift.Bool = true, vehiclePowertrainType: RepairClubSDK.VehiclePowertrainType = .unknown)
+  public init(vinResult: RepairClubSDK.VINResult)
+  public init(vinResult: RepairClubSDK.VINResult, vin: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public var shortDescription: Swift.String {
+    get
+  }
+  public var yearString: Swift.String {
+    get
+  }
+  public var engineString: Swift.String {
+    get
+  }
+  public var descriptionWithEngine: Swift.String {
+    get
+  }
+  public var attributedDescription: Foundation.NSMutableAttributedString {
+    get
+  }
+  public var isEmptyOfData: Swift.Bool {
+    get
+  }
+  public mutating func cleanupVin()
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.VehicleEntry {
+  public static var example1: RepairClubSDK.VehicleEntry
+  public static var example2: RepairClubSDK.VehicleEntry
+  public static var example3: RepairClubSDK.VehicleEntry
+  public static var example4: RepairClubSDK.VehicleEntry
+  public static var example5: RepairClubSDK.VehicleEntry
+  public static var example6: RepairClubSDK.VehicleEntry
+  public static var exampleVehicles: [RepairClubSDK.VehicleEntry]
+}
+public struct VehicleDataProperty : Swift.Hashable, Swift.Identifiable, RepairClubSDK.KeyValueable {
+  public var id: Foundation.UUID
+  public var key: Swift.String
+  public var value: Swift.String
+  public init(id: Foundation.UUID = UUID(), key: Swift.String, value: Swift.String)
+  public var message: Swift.String {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.VehicleDataProperty, b: RepairClubSDK.VehicleDataProperty) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum VehiclePowertrainType : Swift.String, Swift.Codable, Swift.Sendable {
+  case eV
+  case hybrid
+  case diesel
+  case gas
+  case unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct DeviceItem : Swift.Identifiable, Swift.Hashable, Swift.Codable, Swift.Equatable {
+  public var id: Foundation.UUID
+  public var name: Swift.String
+  public var nickname: Swift.String?
+  public var deviceIdentifier: Swift.String
+  public var hardwareIdentifier: Swift.String?
+  public var apiLevel: Swift.String?
+  public var device: CoreBluetooth.CBPeripheral?
+  public var rssi: Swift.Int
+  public var lastConnectionDate: Foundation.Date?
+  public var connectedVehicles: [RepairClubSDK.VehicleEntry]
+  public var pastScans: [RepairClubSDK.ScanEntry]
+  public init(id: Foundation.UUID = UUID(), name: Swift.String, deviceIdentifier: Swift.String, hardwareIdentifier: Swift.String? = nil, apiLevel: Swift.String? = nil, device: CoreBluetooth.CBPeripheral? = nil, rssi: Swift.Int = 0, lastConnectionDate: Foundation.Date? = nil, connectedVehicles: [RepairClubSDK.VehicleEntry] = [], pastScans: [RepairClubSDK.ScanEntry] = [])
+  public init(device: CoreBluetooth.CBPeripheral?, hardwareIdentifier: Swift.String? = nil, apiLevel: Swift.String? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.DeviceItem, rhs: RepairClubSDK.DeviceItem) -> Swift.Bool
+  public mutating func updateMAC(macString: Swift.String)
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ErrorEntry : Swift.Identifiable, Swift.Codable, Swift.Hashable, Swift.Sendable {
+  public var id: Swift.String
+  public let error: RepairClubSDK.CommonError
+  public let note: Swift.String?
+  public let timestamp: Foundation.Date
+  public init(error: RepairClubSDK.CommonError, timestamp: Foundation.Date, note: Swift.String? = nil)
+  public init(error: RepairClubSDK.CommonError, note: Swift.String? = nil)
+  public var description: Swift.String {
+    get
+  }
+  public var descriptionLog: Swift.String {
+    get
+  }
+  public var level: RepairClubSDK.ErrorLevel {
+    get
+  }
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.ErrorEntry, rhs: RepairClubSDK.ErrorEntry) -> Swift.Bool
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum ErrorLevel : Swift.String, Swift.Codable {
+  case internalLevel
+  case externalLevel
+  case userLevel
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum CommonError : Swift.Error, Swift.Codable {
+  case invalidDTCode(RepairClubSDK.ErrorLevel)
+  case missingDTCode(RepairClubSDK.ErrorLevel)
+  case unableToDecodeResponse(RepairClubSDK.ErrorLevel)
+  case decodeDtcFailed(RepairClubSDK.ErrorLevel)
+  case creatingUserFailed(RepairClubSDK.ErrorLevel)
+  case networkError(RepairClubSDK.ErrorLevel)
+  case noResponse(RepairClubSDK.ErrorLevel)
+  case invalidResponse(RepairClubSDK.ErrorLevel)
+  case invalidResponseCode(RepairClubSDK.ErrorLevel)
+  case blankInput(RepairClubSDK.ErrorLevel)
+  case invalidURL(RepairClubSDK.ErrorLevel)
+  case badResponse(RepairClubSDK.ErrorLevel)
+  case noData(RepairClubSDK.ErrorLevel)
+  case unexpectedData(RepairClubSDK.ErrorLevel)
+  case invalidVIN(RepairClubSDK.ErrorLevel)
+  case configNotFound(RepairClubSDK.ErrorLevel)
+  case demoScan(RepairClubSDK.ErrorLevel)
+  case runningGenericScan(RepairClubSDK.ErrorLevel)
+  case genericScanFailed(RepairClubSDK.ErrorLevel)
+  case serializationError(RepairClubSDK.ErrorLevel)
+  case missingToken(RepairClubSDK.ErrorLevel)
+  case missingSession(RepairClubSDK.ErrorLevel)
+  case missingConfig(RepairClubSDK.ErrorLevel)
+  case missingVehicleEntry(RepairClubSDK.ErrorLevel)
+  case expiredToken(RepairClubSDK.ErrorLevel)
+  case advancedScanNotFound(RepairClubSDK.ErrorLevel)
+  case invalidToken(RepairClubSDK.ErrorLevel)
+  case noScanFound(RepairClubSDK.ErrorLevel)
+  case noVINFound(RepairClubSDK.ErrorLevel)
+  case VINTimeout(RepairClubSDK.ErrorLevel)
+  case busSyncFailed(RepairClubSDK.ErrorLevel)
+  case busSyncFailedZeroBusses(RepairClubSDK.ErrorLevel)
+  case scanFailedZeroBusses(RepairClubSDK.ErrorLevel)
+  case scanFailedZeroECUs(RepairClubSDK.ErrorLevel)
+  case scanFailedTimedOut(RepairClubSDK.ErrorLevel)
+  case scanEndedEarly(RepairClubSDK.ErrorLevel)
+  case regularError(any Swift.Error, RepairClubSDK.ErrorLevel)
+  case freezeFrameUnsupported(RepairClubSDK.ErrorLevel)
+  case freezeFrameError(RepairClubSDK.ErrorLevel)
+  case freezeFrameInvalidData(RepairClubSDK.ErrorLevel)
+  case freezeFrameDataUnavailable(RepairClubSDK.ErrorLevel)
+  case serverError(statusCode: Swift.Int, level: RepairClubSDK.ErrorLevel)
+  case invalidParameter(parameter: Swift.String, level: RepairClubSDK.ErrorLevel)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+  public var description: Swift.String {
+    get
+  }
+}
+public struct TroubleCodeEntry : Swift.Codable, Swift.Identifiable, Swift.Hashable, Swift.Sendable {
+  public var id: Swift.String
+  public var dateCreated: Foundation.Date
+  public var dateUpdated: Foundation.Date?
+  public var code: Swift.String
+  public var description: Swift.String?
+  public var statuses: [RepairClubSDK.CodeStatus]
+  public var symptomByte: Swift.String?
+  public var symptomByteDescription: Swift.String?
+  public var techTips: [RepairClubSDK.TechTip]?
+  public var scanErrors: [RepairClubSDK.ErrorEntry]?
+  public var detailStatus: RepairClubSDK.DetailStatus
+  public init(code: Swift.String, description: Swift.String? = nil, detailStatus: RepairClubSDK.DetailStatus, errors: [RepairClubSDK.ErrorEntry]? = nil)
+  public init(code: Swift.String, symptomByte: Swift.String, description: Swift.String? = nil, detailStatus: RepairClubSDK.DetailStatus, symptomByteDescription: Swift.String?, errors: [RepairClubSDK.ErrorEntry]? = nil)
+  public init(result: RepairClubSDK.DtcDetailResultCode, status: [RepairClubSDK.CodeStatus], symptomByte: Swift.String?, detailStatus: RepairClubSDK.DetailStatus, errors: [RepairClubSDK.ErrorEntry]? = nil)
+  public init(result: RepairClubSDK.TechTipResponse, detailStatus: RepairClubSDK.DetailStatus, errors: [RepairClubSDK.ErrorEntry]? = nil)
+  public init(entry: RepairClubSDK.TroubleCodeEntry, result: RepairClubSDK.DTCResult, detailStatus: RepairClubSDK.DetailStatus, errors: [RepairClubSDK.ErrorEntry]? = nil)
+  public init(code: Swift.String, statuses: [RepairClubSDK.CodeStatus] = [], data: Foundation.Data? = nil, description: Swift.String? = nil, techTips: [RepairClubSDK.TechTip] = [], errors: [RepairClubSDK.ErrorEntry]? = nil, detailStatus: RepairClubSDK.DetailStatus)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.TroubleCodeEntry, rhs: RepairClubSDK.TroubleCodeEntry) -> Swift.Bool
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  public mutating func updateDescription(with result: RepairClubSDK.DTCResult?)
+  public mutating func updateInfo(with updatedDetails: RepairClubSDK.TroubleCodeEntry)
+  public mutating func add(techTips: [RepairClubSDK.TechTip])
+  public mutating func removeTechTips()
+  public var statusStrings: [Swift.String] {
+    get
+  }
+  public var longName: Swift.String {
+    get
+  }
+  public var codeWithSymptom: Swift.String {
+    get
+  }
+  public var statusesDescription: Swift.String {
+    get
+  }
+  public var descriptiveString: Swift.String {
+    get
+  }
+  public typealias ID = Swift.String
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum DTCType : Swift.String, Swift.Codable {
+  case confirmed
+  case pending
+  case none
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum CodeStatus : Swift.String, Swift.Codable, Swift.Sendable {
+  case confirmed
+  case pending
+  case permanent
+  case history
+  case warningLight
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension RepairClubSDK.CodeStatus : Swift.Identifiable {
+  public var id: Swift.String {
+    get
+  }
+  public typealias ID = Swift.String
+}
+public enum ProcessedState : Swift.String, Swift.Codable {
+  case initial, partial, complete
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct DTCResult : Swift.Codable, Swift.Identifiable {
+  public var id: Swift.String
+  public var idCode: Swift.String
+  public var module: Swift.String?
+  public var dtcCode: Swift.String
+  public var description: Swift.String
+  public var category: Swift.String
+  public var techTips: [RepairClubSDK.TechTip]?
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum DetailStatus : Swift.String, Swift.Codable, Swift.Sendable {
+  case notStart, started, retrying, failed, partial, complete
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension RepairClubSDK.DetailStatus {
+  public var doneUpdating: Swift.Bool {
+    get
+  }
+}
+public struct VINResult : Swift.Codable {
+  public var VIN: Swift.String
+  public var ModelYear: Swift.String
+  public var Make: Swift.String
+  public var MakeID: Swift.String
+  public var Model: Swift.String
+  public var ModelID: Swift.String
+  public var Series: Swift.String
+  public var EngineCylinders: Swift.String
+  public var Doors: Swift.String
+  public var VehicleType: Swift.String
+  public var PlantCity: Swift.String
+  public var PlantCountry: Swift.String
+  public var FuelTypePrimary: Swift.String
+  public var FuelTypeSecondary: Swift.String?
+  public var BatteryKWh: Swift.String?
+  public var ElectrificationLevel: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.VINResult {
+  public var vehiclePowertrainType: RepairClubSDK.VehiclePowertrainType {
+    get
+  }
+}
+public struct VehicleIDResults : Swift.Codable {
+  public var Results: [RepairClubSDK.VehicleIDResult]
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VehicleIDResult : Swift.Codable {
+  public var VehicleDescription: Swift.String
+  public var VehicleId: Swift.Int
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VehicleSafetyResults : Swift.Codable {
+  public var Count: Swift.Int
+  public var Message: Swift.String
+  public var Results: [RepairClubSDK.VehicleSafetyResult]
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VehicleSafetyResult : Swift.Codable, Swift.Hashable, Swift.Identifiable, RepairClubSDK.PropertyListable, RepairClubSDK.Nameable, RepairClubSDK.Convertable {
+  public var id: Foundation.UUID
+  public var VehiclePicture: Swift.String
+  public var OverallRating: Swift.String
+  public var OverallFrontCrashRating: Swift.String
+  public var FrontCrashDriversideRating: Swift.String
+  public var FrontCrashPassengersideRating: Swift.String
+  public var OverallSideCrashRating: Swift.String
+  public var SideCrashDriversideRating: Swift.String
+  public var SideCrashPassengersideRating: Swift.String
+  public var combinedSideBarrierAndPoleRatingFront: Swift.String
+  public var combinedSideBarrierAndPoleRatingRear: Swift.String
+  public var sideBarrierRating: Swift.String
+  public var RolloverRating: Swift.String
+  public var RolloverRating2: Swift.String
+  public var RolloverPossibility: Swift.Int
+  public var RolloverPossibility2: Swift.Int
+  public var dynamicTipResult: Swift.String
+  public var SidePoleCrashRating: Swift.String
+  public var NHTSAElectronicStabilityControl: Swift.String
+  public var NHTSAForwardCollisionWarning: Swift.String
+  public var NHTSALaneDepartureWarning: Swift.String
+  public var ComplaintsCount: Swift.Int
+  public var RecallsCount: Swift.Int
+  public var InvestigationCount: Swift.Int
+  public var ModelYear: Swift.Int
+  public var Make: Swift.String
+  public var Model: Swift.String
+  public var VehicleDescription: Swift.String
+  public var VehicleId: Swift.Int
+  public func name() -> Swift.String
+  public func properties() -> [RepairClubSDK.VehicleDataProperty]
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.VehicleSafetyResult, b: RepairClubSDK.VehicleSafetyResult) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.VehicleSafetyResults : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.VehicleSafetyResults, rhs: RepairClubSDK.VehicleSafetyResults) -> Swift.Bool
+}
+public struct VehicleRecallResults : Swift.Codable {
+  public var Count: Swift.Int
+  public var Message: Swift.String
+  public var results: [RepairClubSDK.VehicleRecallResult]
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VehicleRecallResult : Swift.Codable, Swift.Hashable, Swift.Identifiable, RepairClubSDK.PropertyListable, RepairClubSDK.Nameable, RepairClubSDK.Convertable {
+  public var id: Foundation.UUID
+  public var Manufacturer: Swift.String
+  public var ReportReceivedDate: Swift.String
+  public var Component: Swift.String
+  public var Summary: Swift.String
+  public var Consequence: Swift.String
+  public var Remedy: Swift.String
+  public var Notes: Swift.String
+  public var ModelYear: Swift.String
+  public var Make: Swift.String
+  public var Model: Swift.String
+  public var reportDate: Foundation.Date? {
+    get
+  }
+  public var reportDateString: Swift.String {
+    get
+  }
+  public func name() -> Swift.String
+  public func properties() -> [RepairClubSDK.VehicleDataProperty]
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.VehicleRecallResult, b: RepairClubSDK.VehicleRecallResult) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.VehicleRecallResults : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.VehicleRecallResults, rhs: RepairClubSDK.VehicleRecallResults) -> Swift.Bool
+}
+public struct VINDetailResult : Swift.Codable, RepairClubSDK.Convertable {
+  public var ABS: Swift.String?
+  public var ActiveSafetySysNote: Swift.String?
+  public var AdaptiveCruiseControl: Swift.String?
+  public var AdaptiveDrivingBeam: Swift.String?
+  public var AdaptiveHeadlights: Swift.String?
+  public var AdditionalErrorText: Swift.String?
+  public var AirBagLocCurtain: Swift.String?
+  public var AirBagLocFront: Swift.String?
+  public var AirBagLocKnee: Swift.String?
+  public var AirBagLocSeatCushion: Swift.String?
+  public var AirBagLocSide: Swift.String?
+  public var AutoReverseSystem: Swift.String?
+  public var AutomaticPedestrianAlertingSound: Swift.String?
+  public var AxleConfiguration: Swift.String?
+  public var Axles: Swift.String?
+  public var BasePrice: Swift.String?
+  public var BatteryA: Swift.String?
+  public var BatteryA_to: Swift.String?
+  public var BatteryCells: Swift.String?
+  public var BatteryInfo: Swift.String?
+  public var BatteryKWh: Swift.String?
+  public var BatteryKWh_to: Swift.String?
+  public var BatteryModules: Swift.String?
+  public var BatteryPacks: Swift.String?
+  public var BatteryType: Swift.String?
+  public var BatteryV: Swift.String?
+  public var BatteryV_to: Swift.String?
+  public var BedLengthIN: Swift.String?
+  public var BedType: Swift.String?
+  public var BlindSpotIntervention: Swift.String?
+  public var BlindSpotMon: Swift.String?
+  public var BodyCabType: Swift.String?
+  public var BodyClass: Swift.String?
+  public var BrakeSystemDesc: Swift.String?
+  public var BrakeSystemType: Swift.String?
+  public var BusFloorConfigType: Swift.String?
+  public var BusLength: Swift.String?
+  public var BusType: Swift.String?
+  public var CAN_AACN: Swift.String?
+  public var CIB: Swift.String?
+  public var CashForClunkers: Swift.String?
+  public var ChargerLevel: Swift.String?
+  public var ChargerPowerKW: Swift.String?
+  public var CoolingType: Swift.String?
+  public var CurbWeightLB: Swift.String?
+  public var CustomMotorcycleType: Swift.String?
+  public var DaytimeRunningLight: Swift.String?
+  public var DestinationMarket: Swift.String?
+  public var DisplacementCC: Swift.String?
+  public var DisplacementCI: Swift.String?
+  public var DisplacementL: Swift.String?
+  public var Doors: Swift.String?
+  public var DriveType: Swift.String?
+  public var DriverAssist: Swift.String?
+  public var DynamicBrakeSupport: Swift.String?
+  public var EDR: Swift.String?
+  public var ESC: Swift.String?
+  public var EVDriveUnit: Swift.String?
+  public var ElectrificationLevel: Swift.String?
+  public var EngineConfiguration: Swift.String?
+  public var EngineCycles: Swift.String?
+  public var EngineCylinders: Swift.String?
+  public var EngineHP: Swift.String?
+  public var EngineHP_to: Swift.String?
+  public var EngineKW: Swift.String?
+  public var EngineManufacturer: Swift.String?
+  public var EngineModel: Swift.String?
+  public var EntertainmentSystem: Swift.String?
+  public var ErrorCode: Swift.String?
+  public var ForwardCollisionWarning: Swift.String?
+  public var FuelInjectionType: Swift.String?
+  public var FuelTypePrimary: Swift.String?
+  public var FuelTypeSecondary: Swift.String?
+  public var GCWR: Swift.String?
+  public var GCWR_to: Swift.String?
+  public var GVWR: Swift.String?
+  public var GVWR_to: Swift.String?
+  public var KeylessIgnition: Swift.String?
+  public var LaneCenteringAssistance: Swift.String?
+  public var LaneDepartureWarning: Swift.String?
+  public var LaneKeepSystem: Swift.String?
+  public var LowerBeamHeadlampLightSource: Swift.String?
+  public var Make: Swift.String?
+  public var MakeID: Swift.String?
+  public var Manufacturer: Swift.String?
+  public var ManufacturerId: Swift.String?
+  public var Model: Swift.String?
+  public var ModelID: Swift.String?
+  public var ModelYear: Swift.String?
+  public var MotorcycleChassisType: Swift.String?
+  public var MotorcycleSuspensionType: Swift.String?
+  public var NCSABodyType: Swift.String?
+  public var NCSAMake: Swift.String?
+  public var NCSAMapExcApprovedBy: Swift.String?
+  public var NCSAMapExcApprovedOn: Swift.String?
+  public var NCSAMappingException: Swift.String?
+  public var NCSAModel: Swift.String?
+  public var NCSANote: Swift.String?
+  public var NonLandUse: Swift.String?
+  public var Note: Swift.String?
+  public var OtherBusInfo: Swift.String?
+  public var OtherEngineInfo: Swift.String?
+  public var OtherMotorcycleInfo: Swift.String?
+  public var OtherTrailerInfo: Swift.String?
+  public var ParkAssist: Swift.String?
+  public var PedestrianAutomaticEmergencyBraking: Swift.String?
+  public var PlantCity: Swift.String?
+  public var PlantCompanyName: Swift.String?
+  public var PlantCountry: Swift.String?
+  public var PlantState: Swift.String?
+  public var PossibleValues: Swift.String?
+  public var Pretensioner: Swift.String?
+  public var RearAutomaticEmergencyBraking: Swift.String?
+  public var RearCrossTrafficAlert: Swift.String?
+  public var RearVisibilitySystem: Swift.String?
+  public var SAEAutomationLevel: Swift.String?
+  public var SAEAutomationLevel_to: Swift.String?
+  public var SeatBeltsAll: Swift.String?
+  public var SeatRows: Swift.String?
+  public var Seats: Swift.String?
+  public var SemiautomaticHeadlampBeamSwitching: Swift.String?
+  public var Series: Swift.String?
+  public var Series2: Swift.String?
+  public var SteeringLocation: Swift.String?
+  public var SuggestedVIN: Swift.String?
+  public var TPMS: Swift.String?
+  public var TopSpeedMPH: Swift.String?
+  public var TrackWidth: Swift.String?
+  public var TractionControl: Swift.String?
+  public var TrailerBodyType: Swift.String?
+  public var TrailerLength: Swift.String?
+  public var TrailerType: Swift.String?
+  public var TransmissionSpeeds: Swift.String?
+  public var TransmissionStyle: Swift.String?
+  public var Trim: Swift.String?
+  public var Trim2: Swift.String?
+  public var Turbo: Swift.String?
+  public var VIN: Swift.String?
+  public var ValveTrainDesign: Swift.String?
+  public var VehicleType: Swift.String?
+  public var WheelBaseLong: Swift.String?
+  public var WheelBaseShort: Swift.String?
+  public var WheelBaseType: Swift.String?
+  public var WheelSizeFront: Swift.String?
+  public var WheelSizeRear: Swift.String?
+  public var Wheels: Swift.String?
+  public var Window: Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct MakeResult : Swift.Codable {
+  public var MakeId: Swift.Int
+  public var MakeName: Swift.String
+  public var VehicleTypeId: Swift.Int
+  public var VehicleTypeName: Swift.String
+  public init(MakeId: Swift.Int, MakeName: Swift.String, VehicleTypeId: Swift.Int, VehicleTypeName: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ModelResult : Swift.Codable {
+  public var Make_ID: Swift.Int
+  public var Make_Name: Swift.String
+  public var Model_ID: Swift.Int
+  public var Model_Name: Swift.String
+  public init(Make_ID: Swift.Int, Make_Name: Swift.String, Model_ID: Swift.Int, Model_Name: Swift.String)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class SessionLog : RepairClubSDK.LogItem, Swift.Identifiable, Swift.Codable, Swift.Hashable {
+  public var id: Foundation.UUID
+  public var type: RepairClubSDK.StructuredLogType
+  public var sessionID: Swift.String
+  public var date: Foundation.Date
+  public var appName: Swift.String
+  public var appVersion: Swift.String
+  public var osName: Swift.String
+  public var osVersion: Swift.String
+  public var userID: Swift.String
+  public var statuses: [RepairClubSDK.StatusUpdate]
+  public var userSettingsLog: RepairClubSDK.UserSettingsLog?
+  public var deviceLog: RepairClubSDK.DeviceInfoLog?
+  public var bleLog: RepairClubSDK.BleLog?
+  public var vehicleLog: RepairClubSDK.VehicleInfoLog?
+  public var configLogs: [RepairClubSDK.ConfigLog]
+  public var busLog: RepairClubSDK.BusLog?
+  public var scanDataGenericLogs: [RepairClubSDK.GenericScanLog]
+  public var advancedScanOperationLogs: [RepairClubSDK.AdvancedOperationLog]
+  public var advancedCommandsOperationLogs: [RepairClubSDK.AdvancedOperationLog]
+  public var monitorsLogs: [RepairClubSDK.MonitorsLog]
+  public var liveDataLogs: [RepairClubSDK.LiveDataLog]
+  public var otaUpdateLogs: [RepairClubSDK.OTAFirmwareUpdateLog]
+  public var pidRecords: [Swift.String : RepairClubSDK.PidRecord]
+  public func hash(into hasher: inout Swift.Hasher)
+  public var name: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public var logs: [Swift.String] {
+    get
+  }
+  public typealias ID = Foundation.UUID
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  required public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.SessionLog {
+  public func jsonRepresentation(prettyPrint: Swift.Bool) -> Swift.String?
+}
+extension RepairClubSDK.SessionLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.SessionLog, rhs: RepairClubSDK.SessionLog) -> Swift.Bool
+}
+public struct DeviceInfoLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var deviceID: Swift.String?
+  public var deviceHardwareIdentifier: Swift.String?
+  public var deviceFirmwareVersion: Swift.String?
+  public var connected: Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.DeviceInfoLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.DeviceInfoLog, rhs: RepairClubSDK.DeviceInfoLog) -> Swift.Bool
+}
+public struct StatusUpdate : Swift.Hashable, Swift.Codable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.StatusUpdate, b: RepairClubSDK.StatusUpdate) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct VehicleInfoLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var vin: Swift.String?
+  public var ymm: Swift.String?
+  public var year: Swift.String?
+  public var make: Swift.String?
+  public var model: Swift.String?
+  public var series: Swift.String?
+  public var engine: Swift.String?
+  public var connectionType: Swift.String?
+  public var manualVIN: Swift.String?
+  public var manualYear: Swift.String?
+  public var manualMake: Swift.String?
+  public var manualModel: Swift.String?
+  public var manualEngine: Swift.String?
+  public var vehicleRecallResults: RepairClubSDK.VehicleRecallResults?
+  public var vehicleSafetyResults: RepairClubSDK.VehicleSafetyResults?
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.VehicleInfoLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.VehicleInfoLog, rhs: RepairClubSDK.VehicleInfoLog) -> Swift.Bool
+}
+public struct ConfigLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Swift.String
+  public var date: Foundation.Date
+  public var configID: Swift.String
+  public var configType: Swift.String
+  public var configJSON: Swift.String?
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.ConfigLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.ConfigLog, rhs: RepairClubSDK.ConfigLog) -> Swift.Bool
+}
+public struct BusLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Swift.String
+  public var date: Foundation.Date
+  public var busDetailsReceived: [Swift.String]
+  public var busEstablishSent: [Swift.String]
+  public var busNumberReceived: [Swift.String]
+  public var messages: [Swift.String]
+  public var errorsReceived: [Swift.String]
+  public var errorsInternal: [Swift.String]
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.BusLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.BusLog, rhs: RepairClubSDK.BusLog) -> Swift.Bool
+}
+public struct BleLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var mtuWrite: Swift.Int?
+  public var mtuRead: Swift.Int?
+  public var messagesSent: [Swift.String]
+  public var messagesReceived: [Swift.String]
+  public var errorsReceived: [Swift.String]
+  public var errorsInternal: [Swift.String]
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.BleLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.BleLog, rhs: RepairClubSDK.BleLog) -> Swift.Bool
+}
+public struct GenericScanLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var scanID: Foundation.UUID
+  public var date: Foundation.Date
+  public var mode01Pid01Response: Swift.String?
+  public var numberOfCodes: Swift.Int?
+  public var numberOfCodesReceived: Swift.String?
+  public var genericTroubleCodeReceived: [Swift.String]
+  public var messagesReceived: [Swift.String]
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.GenericScanLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.GenericScanLog, rhs: RepairClubSDK.GenericScanLog) -> Swift.Bool
+}
+public struct LiveDataLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var availableSources: [RepairClubSDK.LiveDataSource]
+  public var selectedSources: [RepairClubSDK.LiveDataSource]
+  public var liveFeedEntries: [Swift.String : RepairClubSDK.LiveFeedDatedEntry]
+  public var liveFeedEntriesForDisplay: [Swift.String : [RepairClubSDK.PidItem]]
+  public var messagesReceived: [Swift.String]
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.LiveDataLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.LiveDataLog, rhs: RepairClubSDK.LiveDataLog) -> Swift.Bool
+}
+public struct MonitorsLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var mode06Monitors: [RepairClubSDK.ValueMonitor]
+  public var mode06MidsAvailable: [Swift.String]
+  public var mode01Pid01Response: Swift.String?
+  public var readinessMonitors: [RepairClubSDK.ValueMonitor]
+  public var messagesReceived: [Swift.String]
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.MonitorsLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.MonitorsLog, rhs: RepairClubSDK.MonitorsLog) -> Swift.Bool
+}
+public struct UserSettingsLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var settingAdvData: Swift.Bool?
+  public var settingMetric: Swift.Bool?
+  public var demoMode: Swift.Bool?
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.UserSettingsLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.UserSettingsLog, rhs: RepairClubSDK.UserSettingsLog) -> Swift.Bool
+}
+public struct AdvancedOperationLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var type: Swift.String?
+  public var configID: Swift.String
+  public var messagesSent: [Swift.String]
+  public var messagesReceived: [Swift.String]
+  public var results: [Swift.String]
+  public var numberOfRespondingModules: Swift.Int
+  public var numberOfConfigECUs: Swift.Int
+  public var numberOfSyncedBuses: Swift.Int
+  public var numberOfConfigBuses: Swift.Int
+  public var numberOfUniqueModules: Swift.Int
+  public var respondedCount: Swift.Int {
+    get
+  }
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.AdvancedOperationLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.AdvancedOperationLog, rhs: RepairClubSDK.AdvancedOperationLog) -> Swift.Bool
+}
+public enum LogMessageType {
+  case bleMessageSent
+  case bleMessageReceived
+  case bleErrorReceived
+  case bleErrorInternal
+  case genericScanMessageReceived
+  case liveDataMessageReceived
+  case monitorsMessageReceived
+  case advancedOperationMessageSent
+  case advancedOperationMessageReceived
+  public static func == (a: RepairClubSDK.LogMessageType, b: RepairClubSDK.LogMessageType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct OTAFirmwareUpdateLog : Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var sessionID: Foundation.UUID
+  public var date: Foundation.Date
+  public var serverFirmwareVersion: Swift.String
+  public var hardwareID: Swift.String
+  public var currentFirmwareVersion: Swift.String
+  public var targetFirmwareID: Swift.String
+  public var createdBlocks: Swift.Bool
+  public var firmwareSize: Swift.Int
+  public var blockCount: Swift.Int
+  public var blockProgress: Swift.Int
+  public var chunkProgress: Swift.Int
+  public var updates: [Swift.String]
+  public var status: RepairClubSDK.OTAFirmwareUpdateLog.OTAStatus
+  public enum OTAStatus : Swift.String, Swift.Codable {
+    case completed
+    case failed
+    case started
+    case notStarted
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.OTAFirmwareUpdateLog : Swift.Equatable {
+  public static func == (lhs: RepairClubSDK.OTAFirmwareUpdateLog, rhs: RepairClubSDK.OTAFirmwareUpdateLog) -> Swift.Bool
+}
+public enum Status : Swift.String, Swift.Codable, Swift.Sendable {
+  case notStarted, started, ended, complete
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension RepairClubSDK.Status {
+  public var description: Swift.String {
+    get
+  }
+}
+public enum ScanType : Swift.String {
+  case generic
+  case limited
+  case advanced
+  case extended
+  case unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol LogItem {
+  var id: Foundation.UUID { get }
+  var date: Foundation.Date { get }
+  var logs: [Swift.String] { get }
+  var name: Swift.String { get }
+  func jsonRepresentation(prettyPrint: Swift.Bool) -> Swift.String?
+}
+public struct DataSourceLog : RepairClubSDK.LogItem, Swift.Codable {
+  public var id: Foundation.UUID
+  public var date: Foundation.Date
+  public var name: Swift.String {
+    get
+  }
+  public var logs: [Swift.String] {
+    get
+  }
+  public func jsonRepresentation(prettyPrint: Swift.Bool) -> Swift.String?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum StructuredLogType : Swift.String, Swift.Codable {
+  case busDevice, busEstablish
+  case advOpStageModule
+  case advOpOperation
+  case messages
+  case sessionLog
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum StructeredLogStatus : Swift.String, Swift.Codable {
+  case busReceivedFromDevice, busSuccessfullyEstablished, busFailedToEstablished
+  case advOpOperation
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum StructeredLogAction : Swift.String, Swift.Codable {
+  case queued, sent, received, serverDecoded
+  case errorTimeOut, errorDenied, errorBlankReply, errorQueuingNoEstablishedBus
+  case testFailed, testPassed
+  case next, decode, failedAndLog, commandFailed, unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol Convertable : Swift.Decodable, Swift.Encodable {
+}
+extension RepairClubSDK.Convertable {
+  public func convertToDict() -> Swift.Dictionary<Swift.String, Any>?
+}
+public struct Mode6Item : Swift.Codable, Swift.Identifiable, Swift.Hashable {
+  public var id: Foundation.UUID
+  public var testName: Swift.String
+  public var componentName: Swift.String
+  public var value: Swift.Double
+  public var min: Swift.Double
+  public var max: Swift.Double
+  public var unit: Swift.String
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.Mode6Item, b: RepairClubSDK.Mode6Item) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum SampleVehicle : Swift.String, Swift.Codable, Swift.CaseIterable {
+  case none
+  case toyotaSienna2011
+  case volkswagenJetta2013
+  case bmw435i2015
+  case bmw228i2021
+  case fordF1502022
+  case fordEdge2018
+  case lexusGx2017
+  case ram15002017
+  case mercedesBenzGLClass2014
+  case mercedesBenzCLSClass2012
+  case jeepWrangler2014
+  case toyotaCorolla2009
+  case nissanVersa2016
+  case infinityQX802019
+  case infinityQ502022
+  public var description: Swift.String {
+    get
+  }
+  public var vin: Swift.String? {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [RepairClubSDK.SampleVehicle]
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [RepairClubSDK.SampleVehicle] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct RepairReportCreationEntry {
+  public init(headerImage: UIKit.UIImage? = nil, vehicleYear: Swift.String? = nil, vehicleName: Swift.String? = nil, vehicleVIN: Swift.String? = nil, reportName: Swift.String? = nil, reportDate: Swift.String? = nil, reportTime: Swift.String? = nil, moduleCodes: [RepairClubSDK.ModuleItem], noCodesFound: Swift.Bool, discaimer: Swift.String? = nil, qrCode: UIKit.UIImage? = nil)
+  public let id: Swift.String
+  public let headerImage: UIKit.UIImage?
+  public let vehicleYear: Swift.String?
+  public let vehicleName: Swift.String?
+  public let vehicleVIN: Swift.String?
+  public let reportName: Swift.String?
+  public let reportDate: Swift.String?
+  public let reportTime: Swift.String?
+  public let moduleCodes: [RepairClubSDK.ModuleItem]
+  public let noCodesFound: Swift.Bool
+  public let discaimer: Swift.String?
+  public let qrCode: UIKit.UIImage?
+}
+public struct RepairReportCodeEntry : Swift.Equatable {
+  public init(pid: Swift.String, status: Swift.String, description: Swift.String, fixes: [Swift.String])
+  public let id: Swift.String
+  public let pid: Swift.String
+  public let status: Swift.String
+  public let description: Swift.String
+  public let fixes: [Swift.String]
+  public static func == (lhs: RepairClubSDK.RepairReportCodeEntry, rhs: RepairClubSDK.RepairReportCodeEntry) -> Swift.Bool
+}
+@objc public class PDFCreator : ObjectiveC.NSObject {
+  final public let entry: RepairClubSDK.RepairReportCreationEntry
+  final public let indent: CoreFoundation.CGFloat
+  public init(repairReportEntry: RepairClubSDK.RepairReportCreationEntry)
+  public func createReport() -> Foundation.Data
+  @objc deinit
+}
+public enum DeviceConnectionState : Swift.Codable {
+  case disconnected
+  case connecting1
+  case connecting2
+  case connecting3
+  case connected
+  case reconnected
+  case reconnecting
+  case errorBluetoothOff
+  case errorUnresponsive
+  case errorBadInfo
+  case inRange
+  case demo
+  case backgroundConnected
+  case unknown
+  public static func == (a: RepairClubSDK.DeviceConnectionState, b: RepairClubSDK.DeviceConnectionState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum VehicleConnectionState : Swift.Codable {
+  case vehicleConnecting
+  case vehicleConnected
+  case vehicleNotConnected
+  case manualVehicle
+  case errorConnecting
+  case errorDownloading
+  case error
+  case unknown
+  public static func == (a: RepairClubSDK.VehicleConnectionState, b: RepairClubSDK.VehicleConnectionState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SupportTask {
+  public enum SupportTaskType {
+    case order, amazon, bluetoothSettings, link
+    public static func == (a: RepairClubSDK.SupportTask.SupportTaskType, b: RepairClubSDK.SupportTask.SupportTaskType) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public var code: Swift.String
+  public var type: RepairClubSDK.SupportTask.SupportTaskType
+  public var part: Swift.String?
+  public var partString: Swift.String? {
+    get
+  }
+  public var linkString: Swift.String? {
+    get
+  }
+  public init(code: Swift.String)
+}
+public struct TechTip : Swift.Codable, Swift.Identifiable, Swift.Hashable, Swift.Sendable {
+  public var id: Foundation.UUID
+  public var action: Swift.String
+  public var part: Swift.String
+  public var tip: Swift.String?
+  public var quality: RepairClubSDK.TechTip.Quality
+  public init(from decoder: any Swift.Decoder) throws
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.TechTip, b: RepairClubSDK.TechTip) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension RepairClubSDK.TechTip {
+  public enum Quality : Swift.Int, Swift.Codable, Swift.Sendable {
+    case best
+    case reliable
+    case other
+    public init(from decoder: any Swift.Decoder) throws
+    public func encode(to encoder: any Swift.Encoder) throws
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+}
+public struct TechTipQueryResponse : Swift.Decodable {
+  public var response: RepairClubSDK.TechTipResponse
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct TechTipResponse : Swift.Decodable {
+  public var dtc: Swift.String
+  public var vehicleMake: Swift.String
+  public var vehicleModel: Swift.String
+  public var vehicleYear: Swift.String
+  public var ecuModule: Swift.String
+  public var dtcDescription: Swift.String
+  public var techTips: [RepairClubSDK.TechTip]
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct dtcDetailResult : Swift.Codable, Swift.Identifiable {
+  public var id: Swift.String
+  public var ecuName: Swift.String?
+  public var codes: [RepairClubSDK.DtcDetailResultCode]
+  public var techTipsErrors: [Swift.String]
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct DtcDetailResultCode : Swift.Codable {
+  public var id: Foundation.UUID
+  public var troubleCode: Swift.String
+  public var techTips: [RepairClubSDK.TechTip]?
+  public var dtcLookupStatus: Swift.String?
+  public var codeDescription: Swift.String?
+  public var numExistingTechTips: Swift.Int?
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct TechTipsSection : Swift.Hashable, Swift.Identifiable, Swift.Codable {
+  public var id: Foundation.UUID
+  public var name: Swift.String
+  public var quality: RepairClubSDK.TechTip.Quality
+  public var techTips: [RepairClubSDK.TechTip]
+  public init(id: Foundation.UUID = UUID(), name: Swift.String, quality: RepairClubSDK.TechTip.Quality, techTips: [RepairClubSDK.TechTip])
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.TechTipsSection, b: RepairClubSDK.TechTipsSection) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor @preconcurrency public class KeyboardLayoutGuide : UIKit.UILayoutGuide {
+  @_Concurrency.MainActor @preconcurrency public var baseHeight: CoreFoundation.CGFloat
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public var owningView: UIKit.UIView? {
+    @objc get
+    @objc set
+  }
+  @_Concurrency.MainActor @preconcurrency @objc override dynamic public init()
+  @_Concurrency.MainActor @preconcurrency @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public struct Keyboard {
+  public struct Animation {
+  }
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public class func animateAlongside(keyboardAnimation: RepairClubSDK.Keyboard.Animation, options: UIKit.UIView.AnimationOptions = [], delay: Foundation.TimeInterval = 0, animations: @escaping () -> Swift.Void, completion: ((_ finished: Swift.Bool) -> Swift.Void)? = nil)
+}
+@_hasMissingDesignatedInitializers public class NotificationObserver {
+  @objc deinit
+}
+public protocol AutoLayoutElement {
+}
+extension UIKit.UIView : RepairClubSDK.AutoLayoutElement {
+}
+extension UIKit.UILayoutGuide : RepairClubSDK.AutoLayoutElement {
+}
+extension UIKit.NSLayoutConstraint {
+  @_Concurrency.MainActor @preconcurrency convenience public init(_ view1: any RepairClubSDK.AutoLayoutElement, _ attribute1: UIKit.NSLayoutConstraint.Attribute, _ relation: UIKit.NSLayoutConstraint.Relation = .equal, to view2: (any RepairClubSDK.AutoLayoutElement)?, _ attribute2: UIKit.NSLayoutConstraint.Attribute? = nil, multiplier: CoreFoundation.CGFloat = 1, constant: CoreFoundation.CGFloat = 0)
+}
+extension RepairClubSDK.AutoLayoutElement {
+  public func constraint(_ attribute: UIKit.NSLayoutConstraint.Attribute, _ relation: UIKit.NSLayoutConstraint.Relation = .equal, to anotherView: (any RepairClubSDK.AutoLayoutElement)?, _ anotherViewAttribute: UIKit.NSLayoutConstraint.Attribute? = nil, multiplier: CoreFoundation.CGFloat = 1, constant: CoreFoundation.CGFloat = 0) -> UIKit.NSLayoutConstraint
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor @preconcurrency public func constraintEdges(to view: UIKit.UIView) -> [UIKit.NSLayoutConstraint]
+  @_Concurrency.MainActor @preconcurrency public func constraintEdges(to view: UIKit.UIView, with insets: UIKit.UIEdgeInsets) -> [UIKit.NSLayoutConstraint]
+  @_Concurrency.MainActor @preconcurrency public func constraintEdges(to view: UIKit.UIView, with insets: UIKit.NSDirectionalEdgeInsets) -> [UIKit.NSLayoutConstraint]
+}
+public enum ConnectionCommands : Swift.String, Swift.CaseIterable {
+  case acknowledgement
+  case advancedDataRequest
+  case advancedDataResponse
+  case busDetail
+  case busEstablish
+  case busNumber
+  case busSearch
+  case clearGenericCodes
+  case clearStoredLiveDataQueries
+  case codesSend
+  case dataSessionDescriptionStart
+  case dataQueryForADataPoint
+  case dataPoint
+  case deviceInformation
+  case endCapture
+  case endDataSessionDescription
+  case error
+  case endSession
+  case firmware
+  case genericCodes
+  case keepAlive
+  case milStatus
+  case numberOfCodes
+  case noVehicleIdentificationNumber
+  case newSession
+  case packet
+  case ready
+  case resend
+  case startCapture
+  case supportedMIDS
+  case sessionStats
+  case supportedPIDS
+  case diagnosticTroubleCode
+  case vehicleIdentificationNumber
+  case waitRequest
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [RepairClubSDK.ConnectionCommands]
+  public typealias RawValue = Swift.String
+  nonisolated public static var allCases: [RepairClubSDK.ConnectionCommands] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension UIKit.UIDevice {
+  @_Concurrency.MainActor @preconcurrency public var iPhone: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public var iPad: Swift.Bool {
+    get
+  }
+  public enum ScreenType : Swift.String {
+    case iPhones_4_4S
+    case iPhones_5_5s_5c_SE
+    case iPhones_6_6s_7_8
+    case iPhones_6Plus_6sPlus_7Plus_8Plus
+    case iPhones_X_XS_12mini
+    case iPhone_XR_11
+    case iPhone_XSMax_ProMax
+    case iPhone_11Pro
+    case iPhone_12_12Pro_13_13Pro
+    case iPhone_12ProMax_13ProMax
+    case iPhone_13Mini
+    case unknown
+    public init?(rawValue: Swift.String)
+    @available(iOS 2.0, *)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+  @_Concurrency.MainActor @preconcurrency public var screenType: UIKit.UIDevice.ScreenType {
+    get
+  }
+  @_Concurrency.MainActor @preconcurrency public func isScreenBigiPhone() -> Swift.Bool
+  @_Concurrency.MainActor @preconcurrency public func isScreenBig() -> Swift.Bool
+}
+public class ObservableArray<T> : Combine.ObservableObject {
+  @Combine.Published @_projectedValueProperty($array) public var array: [T] {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  public var $array: Combine.Published<[T]>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  public var cancellables: [Combine.AnyCancellable]
+  public init(array: [T])
+  public func observeChildrenChanges<K>(_ type: K.Type) throws -> RepairClubSDK.ObservableArray<T> where K : Combine.ObservableObject
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+public protocol ConnectionDelegate : AnyObject {
+  func handleDisconnection()
+  func handleDeviceConnection()
+  func handleVehicleConnection()
+  func handleVehicleDisconnection()
+}
+public enum DeviceDataMode {
+  case connecting
+  case normal
+  case mode1
+  case mode5
+  case mode6
+  case smogCheck
+  case firmwareUpdate
+  case pause
+  public static func == (a: RepairClubSDK.DeviceDataMode, b: RepairClubSDK.DeviceDataMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension Foundation.NSNotification.Name {
+  public static var deviceConnected: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceConnecting: Foundation.Notification.Name {
+    get
+  }
+  public static var demoConnected: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceReconnected: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceScanning: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceDisconnected: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceChanged: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceError: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceBackground: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceInvalid: Foundation.Notification.Name {
+    get
+  }
+  public static var vehicleConnected: Foundation.Notification.Name {
+    get
+  }
+  public static var vehicleChanged: Foundation.Notification.Name {
+    get
+  }
+  public static var vehicleDisconnected: Foundation.Notification.Name {
+    get
+  }
+  public static var dtcCodesUpdated: Foundation.Notification.Name {
+    get
+  }
+  public static var techChatWaiting: Foundation.Notification.Name {
+    get
+  }
+  public static var techChatCleared: Foundation.Notification.Name {
+    get
+  }
+  public static var techChatHidden: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceUpdateAvailable: Foundation.Notification.Name {
+    get
+  }
+  public static var deviceUpdateUnavailable: Foundation.Notification.Name {
+    get
+  }
+  public static var bleDevicesFound: Foundation.Notification.Name {
+    get
+  }
+  public static var loadingVehicle: Foundation.Notification.Name {
+    get
+  }
+  public static var vehicleInfoNeeded: Foundation.Notification.Name {
+    get
+  }
+  public static var advancedScanUnavailableDefaultGeneral: Foundation.Notification.Name {
+    get
+  }
+  public static var resetViews: Foundation.Notification.Name {
+    get
+  }
+  public static var showToast: Foundation.Notification.Name {
+    get
+  }
+}
+public protocol PropertyListable {
+  func properties() -> [RepairClubSDK.VehicleDataProperty]
+}
+public protocol KeyValueable {
+  var key: Swift.String { get set }
+  var value: Swift.String { get set }
+}
+public protocol Nameable {
+  func name() -> Swift.String
+}
+public struct ServiceOption : Swift.OptionSet {
+  public let rawValue: Swift.Int
+  public static let tpmsReset: RepairClubSDK.ServiceOption
+  public static let clearAllCodes: RepairClubSDK.ServiceOption
+  public static let batteryRegistration: RepairClubSDK.ServiceOption
+  public static let resetOilService: RepairClubSDK.ServiceOption
+  public static let parkingBrake: RepairClubSDK.ServiceOption
+  public static let powerBalance: RepairClubSDK.ServiceOption
+  public init(rawValue: Swift.Int)
+  public typealias ArrayLiteralElement = RepairClubSDK.ServiceOption
+  public typealias Element = RepairClubSDK.ServiceOption
+  public typealias RawValue = Swift.Int
+}
+public struct ServiceAdvanced : Swift.Codable, Swift.Identifiable {
+  public var id: Swift.String
+  public var name: Swift.String
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct LiveDataSource : Swift.Codable, Swift.Identifiable, Swift.Hashable, Swift.Sendable {
+  public var id: Swift.String
+  public var pidCode: Swift.String
+  public var name: Swift.String
+  public var shortName: Swift.String?
+  public var unit: Swift.String
+  public var min: Swift.Double?
+  public var max: Swift.Double?
+  public var dynamicStartMin: Swift.Double?
+  public var dynamicStartMax: Swift.Double?
+  public var uicolor: UIKit.UIColor?
+  public var positionLeading: Swift.Bool
+  public var convertableUnits: RepairClubSDK.ConvertableUnits?
+  public var isAvailable: Swift.Bool
+  public var useSetMin: Swift.Bool
+  public var useSetMax: Swift.Bool
+  public init(source: RepairClubSDK.LiveDataSource, uiColor: UIKit.UIColor, positionLeading: Swift.Bool)
+  public init(id: Swift.String, pidCode: Swift.String, name: Swift.String, unit: Swift.String, shortName: Swift.String? = nil)
+  public init(id: Swift.String, name: Swift.String, unit: Swift.String, min: Swift.Double? = nil, max: Swift.Double? = nil, dynamicStartMin: Swift.Double? = nil, dynamicStartMax: Swift.Double? = nil, isAvailable: Swift.Bool = false, useSetMin: Swift.Bool = true, useSetMax: Swift.Bool = true, shortName: Swift.String? = nil)
+  public init(id: Swift.String, name: Swift.String, isAvailable: Swift.Bool = true, useSetMin: Swift.Bool = true, useSetMax: Swift.Bool = true, shortName: Swift.String? = nil)
+  public func hash(into hasher: inout Swift.Hasher)
+  public var displayName: Swift.String {
+    get
+  }
+  public var requestCode: Swift.String {
+    get
+  }
+  public var color: SwiftUICore.Color {
+    get
+  }
+  public mutating func setAsSecondaryColor()
+  public func minConverted(shouldConvert: Swift.Bool) -> Swift.Double?
+  public func maxConverted(shouldConvert: Swift.Bool) -> Swift.Double?
+  public func dynamicStartMinConverted(shouldConvert: Swift.Bool) -> Swift.Double?
+  public func dynamicStartMaxConverted(shouldConvert: Swift.Bool) -> Swift.Double?
+  public func converted(valueIn: Swift.Double?, shouldConvert: Swift.Bool) -> Swift.Double?
+  public func convertedUnit(shouldConvert: Swift.Bool) -> Swift.String
+  public static func == (a: RepairClubSDK.LiveDataSource, b: RepairClubSDK.LiveDataSource) -> Swift.Bool
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.LiveDataSource {
+  public static let blankSource: RepairClubSDK.LiveDataSource
+  public static let exampleRPM: RepairClubSDK.LiveDataSource
+  public static let testSources: [RepairClubSDK.LiveDataSource]
+  public static let sources: [RepairClubSDK.LiveDataSource]
+}
+public enum ConvertableUnits : Swift.Codable, Swift.Hashable, Swift.Sendable {
+  case mph(Swift.Double)
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: RepairClubSDK.ConvertableUnits, b: RepairClubSDK.ConvertableUnits) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct TestResult : Swift.Codable, Swift.Hashable, Swift.Identifiable {
+  public var id: Foundation.UUID
+  public var date: Foundation.Date
+  public var vin: Swift.String
+  public var vehicle: RepairClubSDK.VehicleEntry
+  public var sourceTestResults: [RepairClubSDK.TestResultItem]?
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (lhs: RepairClubSDK.TestResult, rhs: RepairClubSDK.TestResult) -> Swift.Bool
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension RepairClubSDK.TestResult {
+  public func liveFeedTestToArrayOfStrings() -> [Swift.String]
+  public func createCSVToShare() -> Swift.String
+}
+public struct TestResultItem : Swift.Codable, Swift.Identifiable {
+  public var id: Foundation.UUID
+  public var source: RepairClubSDK.LiveDataSource
+  public var result: RepairClubSDK.TestRunResult
+  public typealias ID = Foundation.UUID
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum TestRunResult : Swift.Codable {
+  case failed, notAvailable, notTested, passed
+  public var displayString: Swift.String {
+    get
+  }
+  public var valueString: Swift.String {
+    get
+  }
+  public var color: SwiftUICore.Color {
+    get
+  }
+  public static func == (a: RepairClubSDK.TestRunResult, b: RepairClubSDK.TestRunResult) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct DebuggingResources {
+  public init()
+  public let moduleNames: [Swift.String]
+  public let modules: [RepairClubSDK.ModuleItem]
+  public let exampleCodeItems: [RepairClubSDK.TroubleCodeEntry]
+  public let mode6TestData: [RepairClubSDK.Mode6Item]
+  public var liveDataStream: [[Swift.String]]
+  public var liveDataSNStream: [[Swift.String]]
+  public var liveDataStreamJoined: Swift.String {
+    get
+  }
+}
+public struct PidRecord : Swift.Codable {
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum Result<Success, Failure> where Failure : Swift.Error {
+  case success(Success)
+  case failure(Failure)
+}
+extension RepairClubSDK.Result {
+  public func get() throws -> Success
+}
+public enum ResponseStatus : Swift.String, Swift.Codable, Swift.Equatable, Swift.Sendable {
+  case responded
+  case didNotRespond
+  case awaitingDecode
+  case unknown
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension RepairClubSDK.ResponseStatus {
+  public var description: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class RepairClubManager : Combine.ObservableObject {
+  public static let shared: RepairClubSDK.RepairClubManager
+  final public let RepairClubSDKVersion: Swift.String
+  @Combine.Published @_projectedValueProperty($firmwareUpdateProgress) final public var firmwareUpdateProgress: RepairClubSDK.FirmwareProgress? {
+    get
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    set
+    @available(iOS 13.0, tvOS 13.0, watchOS 6.0, macOS 10.15, *)
+    _modify
+  }
+  final public var $firmwareUpdateProgress: Combine.Published<RepairClubSDK.FirmwareProgress?>.Publisher {
+    get
+    @available(iOS 14.0, tvOS 14.0, watchOS 7.0, macOS 11.0, *)
+    set
+  }
+  final public var sessionID: Swift.String? {
+    get
+  }
+  final public var deviceItem: RepairClubSDK.DeviceItem? {
+    get
+  }
+  final public var deviceID: Swift.String? {
+    get
+  }
+  final public var deviceFirmwareVersion: Swift.String? {
+    get
+  }
+  final public func configureSDK(tokenString: Swift.String, appName: Swift.String, appVersion: Swift.String, userID: Swift.String)
+  final public func updateApp(state: RepairClubSDK.AppForegroundState)
+  final public func returnDevices(_ completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.DeviceItem], any Swift.Error>) -> Swift.Void))
+  final public func connectToDevice(peripheral: CoreBluetooth.CBPeripheral, _ connectionHandler: @escaping ((RepairClubSDK.ConnectionEntry, RepairClubSDK.ConnectionStage, RepairClubSDK.ConnectionState) -> Swift.Void))
+  final public func subscribeToDisconnections(completionHandler: @escaping (() -> Swift.Void))
+  final public func reconnectToPeripheral(with peripheralID: Foundation.UUID, _ completionHandler: @escaping ((RepairClubSDK.Result<CoreBluetooth.CBPeripheral?, any Swift.Error>) -> Swift.Void))
+  final public func disconnectFromDevice() -> (Swift.Bool, (any Swift.Error)?)
+  final public func currentDevice() -> RepairClubSDK.DeviceItem?
+  final public func registerDeviceConnectionState(changes completionHandler: @escaping ((RepairClubSDK.DeviceConnectionState) -> Swift.Void))
+  final public func registerVehicleConnectionState(changes completionHandler: @escaping ((RepairClubSDK.VehicleConnectionState) -> Swift.Void))
+  final public func userWillEnterManualVehicleMode()
+  final public func stopScanningForDevices()
+  final public func subscribeToSDKErrors(callback completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.ErrorEntry], any Swift.Error>) -> Swift.Void))
+  final public func subscribeToLatestError(callback completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.ErrorEntry, any Swift.Error>) -> Swift.Void))
+  final public func registerVIN(callback completionHandler: @escaping ((RepairClubSDK.Result<Swift.String, any Swift.Error>) -> Swift.Void))
+  final public func registerVehicle(callback completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.VehicleEntry?, any Swift.Error>) -> Swift.Void))
+  final public func requestVehicleInformationFor(VIN: Swift.String) async -> RepairClubSDK.Result<RepairClubSDK.VehicleEntry, any Swift.Error>
+  final public func supplyVehicleInformation(vin: Swift.String?, vehicleEntry: RepairClubSDK.VehicleEntry?)
+  final public func getCurrentVehicleEntry() -> RepairClubSDK.VehicleEntry?
+  final public func setCurrentVehicleToA(manual vehicle: RepairClubSDK.VehicleEntry)
+  final public func requestVIN() -> RepairClubSDK.Result<Swift.String, any Swift.Error>
+  final public func subscribeToLiveStream(_ completionHandler: @escaping ((RepairClubSDK.Result<[Swift.String : RepairClubSDK.LiveFeedDatedEntry], any Swift.Error>) -> Swift.Void))
+  final public func subscribeToLiveDataRanges(_ completionHandler: @escaping ((RepairClubSDK.Result<(min: [Swift.String : Swift.Double], max: [Swift.String : Swift.Double]), any Swift.Error>) -> Swift.Void))
+  final public func requestAllLiveDataSources() -> RepairClubSDK.Result<[RepairClubSDK.LiveDataSource], any Swift.Error>
+  final public func requestAvailableLiveDataSources() -> RepairClubSDK.Result<[RepairClubSDK.LiveDataSource], any Swift.Error>
+  final public func startLiveDataStream(with codes: [RepairClubSDK.LiveDataSource]) -> RepairClubSDK.Result<Swift.Bool, any Swift.Error>
+  final public func endLiveDataStream() -> Swift.Bool
+  final public func currentLiveFeedCSV(countToKeep: Swift.Int = 1_000) -> RepairClubSDK.Result<Swift.String, any Swift.Error>
+  final public func returnLiveFeedCSV(from feedEntries: [RepairClubSDK.LiveFeedDatedEntry], countToKeep: Swift.Int = 1_000) -> RepairClubSDK.Result<Swift.String, any Swift.Error>
+  final public func requestDataPoint(pid: Swift.String, callback: @escaping (Swift.String) -> Swift.Void)
+  final public func subscribeToMonitors(_ completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.ValueMonitor], any Swift.Error>) -> Swift.Void))
+  final public func subscribeToMode06Monitors(_ completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.ValueMonitor], any Swift.Error>) -> Swift.Void))
+  final public func subscribeToMode06SupportedMonitors(_ completionHandler: @escaping ((RepairClubSDK.Result<[Swift.String], any Swift.Error>) -> Swift.Void))
+  final public func requestMonitors(_ sparkVehicle: Swift.Bool = true)
+  final public func requestMode06Monitors(shouldLoop: Swift.Bool = true)
+  final public func requestReadinessMonitors(shouldLoop: Swift.Bool = true)
+  final public func startRequestMonitorsTimer()
+  final public func endRequestMonitorsTimer()
+  final public func registerMilChange(callback completionHandler: @escaping ((RepairClubSDK.Result<Swift.Bool, any Swift.Error>) -> Swift.Void))
+  final public func requestMilStatus() -> RepairClubSDK.Result<Swift.Bool, any Swift.Error>
+  final public func requestFreezeFrameFor(code: RepairClubSDK.TroubleCodeEntry, scanEntry: RepairClubSDK.ScanEntry, callback completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.ValueMonitor], RepairClubSDK.CommonError>) -> Swift.Void))
+  final public func requestFreezeFrameValuesFor(code: RepairClubSDK.TroubleCodeEntry, scanEntry: RepairClubSDK.ScanEntry, valueCompletionHandler: @escaping ((RepairClubSDK.Result<[Swift.String : Swift.Double], RepairClubSDK.CommonError>) -> Swift.Void))
+  final public func startTroubleCodeScan(advancedScan: Swift.Bool = false, progressHandler: @escaping (RepairClubSDK.ScanProgressUpdate) -> Swift.Void)
+  final public func startExtendedTroubleCodeScan(progressHandler: @escaping (RepairClubSDK.ScanProgressUpdate) -> Swift.Void)
+  final public func stopTroubleCodeScan()
+  final public func fetchDTCDescription(for code: Swift.String, on vehicle: RepairClubSDK.VehicleEntry) async -> RepairClubSDK.Result<RepairClubSDK.DTCResult?, any Swift.Error>
+  final public func fetchDTCDescription(for code: Swift.String, on vehicle: RepairClubSDK.VehicleEntry, completion: @escaping (RepairClubSDK.Result<RepairClubSDK.DTCResult, any Swift.Error>) -> Swift.Void)
+  final public func requestVinDecode(for vin: Swift.String, completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.VINResult, any Swift.Error>) -> Swift.Void))
+  final public func requestVinDetailDecode(for vin: Swift.String, completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.VINDetailResult, any Swift.Error>) -> Swift.Void))
+  final public func requestVehicleID(for vehicle: RepairClubSDK.VehicleEntry, completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.VehicleIDResults, any Swift.Error>) -> Swift.Void))
+  final public func requestSafetyRatingsFor(id: Swift.String, completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.VehicleSafetyResult, any Swift.Error>) -> Swift.Void))
+  final public func requestMakeList(_ completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.MakeResult], any Swift.Error>) -> Swift.Void))
+  final public func requestModels(for makeID: Swift.Int, completionHandler: @escaping ((RepairClubSDK.Result<[RepairClubSDK.ModelResult], any Swift.Error>) -> Swift.Void))
+  final public func requestRecalls(for vehicle: RepairClubSDK.VehicleEntry, completionHandler: @escaping ((RepairClubSDK.Result<RepairClubSDK.VehicleRecallResults, any Swift.Error>) -> Swift.Void))
+  final public func clearGenericCodes(completionHandler: @escaping ((RepairClubSDK.Result<Swift.Bool, any Swift.Error>) -> Swift.Void))
+  final public func clearAllCodes(progressHandler: @escaping (RepairClubSDK.OperationProgressUpdate) -> Swift.Void)
+  final public func fetchAvailableServices(completion: @escaping (RepairClubSDK.ServiceOption) -> Swift.Void)
+  final public func fetchAvailableServices() -> [RepairClubSDK.ServiceAdvanced]?
+  final public func startService(service: RepairClubSDK.ServiceAdvanced, progressHandler: @escaping (RepairClubSDK.OperationProgressUpdate) -> Swift.Void)
+  final public func returnFormData(for scan: RepairClubSDK.ScanEntry) -> RepairClubSDK.TesterFormData?
+  final public func configureSDK(with configuration: RepairClubSDK.SDKConfiguration)
+  final public func returnDevInfo(with key: Swift.String, completionHandler: @escaping ((RepairClubSDK.Result<Any, any Swift.Error>) -> Swift.Void))
+  final public func setProcess(with key: Swift.String)
+  final public func clearCache(type: RepairClubSDK.RepairClubManager.CacheType)
+  final public func isVinUnavailable() -> Swift.Bool
+  final public func isUseToastEnabled() -> Swift.Bool
+  final public func isUseImperialUnitsEnabled() -> Swift.Bool
+  final public func isDeveloperModeEnabled() -> Swift.Bool
+  final public func isTesterModeEnabled() -> Swift.Bool
+  final public func isUseWrapperEnabled() -> Swift.Bool
+  final public func useDevServerValue() -> Swift.Int
+  final public func getSampleVehicleOnSim() -> RepairClubSDK.SampleVehicle
+  final public func setVinUnavailable(_ unavailable: Swift.Bool)
+  final public func setUseToast(_ useToast: Swift.Bool)
+  final public func setUseImperialUnits(_ useImperial: Swift.Bool)
+  final public func setUseWrapper(_ useNew: Swift.Bool)
+  final public func setUseDevServer(_ useNew: Swift.Int)
+  final public func setSampleVehicleOnSim(_ vehicle: RepairClubSDK.SampleVehicle)
+  final public func set(_ text: Swift.String)
+  final public func subscribeToFirmwareProgress(_ completionHandler: @escaping ((RepairClubSDK.FirmwareProgress) -> Swift.Void))
+  final public func startDeviceFirmwareUpdate(to version: Swift.String? = nil, reqReleaseLevel: RepairClubSDK.FirmwareReleaseType? = nil, progressCallback: @escaping ((Swift.Double) -> Swift.Void), completionCallback: @escaping ((RepairClubSDK.Result<Swift.Bool, any Swift.Error>) -> Swift.Void))
+  final public func cancelDeviceFirmwareUpdate(completionCallback: @escaping ((RepairClubSDK.Result<Swift.Bool, any Swift.Error>) -> Swift.Void))
+  final public func startDeviceFirmwareUpdate(reqVersion: Swift.String? = nil, reqReleaseLevel: RepairClubSDK.FirmwareReleaseType? = nil)
+  final public func stopDeviceFirmwareUpdate()
+  final public func subscribeToFirmwareVersionChanges(completionCallback: @escaping ((Swift.String, Swift.String) -> Swift.Void))
+  final public func getDeviceFirmwareVersion() -> RepairClubSDK.Result<Swift.String?, any Swift.Error>
+  final public func getNewestAvailableFirmwareVersion() -> RepairClubSDK.Result<Swift.String?, any Swift.Error>
+  final public func startDemoMode(demoOn: Swift.Bool, _ connectionHandler: @escaping ((RepairClubSDK.ConnectionEntry, RepairClubSDK.ConnectionStage, RepairClubSDK.ConnectionState) -> Swift.Void))
+  final public func stopDemoMode()
+  final public func clearKeyCahe() async
+  public typealias ObjectWillChangePublisher = Combine.ObservableObjectPublisher
+  @objc deinit
+}
+extension RepairClubSDK.RepairClubManager {
+  public enum CacheType {
+    case config, user, vehicle
+    public static func == (a: RepairClubSDK.RepairClubManager.CacheType, b: RepairClubSDK.RepairClubManager.CacheType) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+}
+public enum AppForegroundState {
+  case foreground
+  case enteringBackground
+  case background
+  case enteringForeground
+  public static func == (a: RepairClubSDK.AppForegroundState, b: RepairClubSDK.AppForegroundState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ConnectionStep {
+  case connectToDevice
+  case getVIN
+  case getVehicle
+  case downloadConfig
+  case syncBusses
+  public static func == (a: RepairClubSDK.ConnectionStep, b: RepairClubSDK.ConnectionStep) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum StepStatus {
+  case started
+  case success
+  case failure(any Swift.Error)
+}
+public enum ScanProgressUpdate {
+  case scanStarted(scanInfo: RepairClubSDK.OperationInfo)
+  case progressUpdate(progress: Swift.Double)
+  case moduleScanningUpdate(moduleName: Swift.String)
+  case modulesUpdate(modules: [RepairClubSDK.ModuleItem])
+  case scanSucceeded(scanEntry: RepairClubSDK.ScanEntry?, modules: [RepairClubSDK.ModuleItem], errors: [RepairClubSDK.ErrorEntry]?)
+  case scanFailed(errors: [RepairClubSDK.ErrorEntry])
+}
+public enum OperationProgressUpdate {
+  case operationStarted
+  case operationProgressUpdate(progress: Swift.Double)
+  case operationInformation(text: Swift.String)
+  case operationSucceeded
+  case operationFailed(errors: [RepairClubSDK.ErrorEntry])
+}
+public struct OperationInfo {
+}
+public struct ValueMonitor : Swift.Identifiable, Swift.Codable, Swift.Hashable, Swift.Equatable, Swift.Sendable {
+  public var id: Swift.String
+  public var type: RepairClubSDK.MonitorType
+  public var modeID: Swift.String
+  public var valueID: Swift.String
+  public var valueName: Swift.String
+  public var cid: Swift.String?
+  public var cidName: Swift.String?
+  public var unit: Swift.String
+  public var name: Swift.String
+  public var description: Swift.String
+  public var status: Swift.Bool
+  public var values: [RepairClubSDK.PidItem]
+  public var min: Swift.Double?
+  public var max: Swift.Double?
+  public var DTCs: [Swift.String]?
+  public var readinessBitMap: [Swift.String]?
+  public var readinessStatus: [Swift.Bool]?
+  public init(id: Swift.String = UUID().uuidString, type: RepairClubSDK.MonitorType, modeID: Swift.String, valueID: Swift.String, valueName: Swift.String, cid: Swift.String? = nil, cidName: Swift.String? = nil, unit: Swift.String, name: Swift.String, description: Swift.String, status: Swift.Bool, values: [RepairClubSDK.PidItem], min: Swift.Double? = nil, max: Swift.Double? = nil, DTCs: [Swift.String]? = nil, readinessBitMap: [Swift.String]? = nil, readinessStatus: [Swift.Bool]? = nil)
+  public var valueInRange: RepairClubSDK.ValueInRange {
+    get
+  }
+  public var descriptiveLog: Swift.String {
+    get
+  }
+  public mutating func addValue(value: Swift.Double, date: Foundation.Date)
+  public var monitorAvailability: Swift.String {
+    get
+  }
+  public var availability: Swift.Bool {
+    get
+  }
+  public var completeness: Swift.Bool {
+    get
+  }
+  public var isMIL: Swift.Bool {
+    get
+  }
+  public var isMilOn: Swift.Bool? {
+    get
+  }
+  public var monitorCompleteness: Swift.String {
+    get
+  }
+  public var monitorStatusColor: SwiftUICore.Color {
+    get
+  }
+  public var monitorStatusIconName: Swift.String {
+    get
+  }
+  public var codeID: Swift.String {
+    get
+  }
+  public func codeID(currentMode: RepairClubSDK.ModeType = .mode01) -> Swift.String
+  public func currentValue(shouldConvert: Swift.Bool) -> Swift.Double?
+  public func convertedUnit(shouldConvert: Swift.Bool) -> Swift.String
+  public var itemName: Swift.String {
+    get
+  }
+  public static func == (lhs: RepairClubSDK.ValueMonitor, rhs: RepairClubSDK.ValueMonitor) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias ID = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum MonitorType : Swift.Codable, Swift.Sendable {
+  case continuous, nonContinuous, snapshot
+  public static func == (a: RepairClubSDK.MonitorType, b: RepairClubSDK.MonitorType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum ValueInRange {
+  case belowRange, inRange, aboveRange, unavailable
+  public static func == (a: RepairClubSDK.ValueInRange, b: RepairClubSDK.ValueInRange) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum ModeType : Swift.Codable {
+  case mode01
+  case mode02
+  case mode03
+  case mode04
+  case mode05
+  case mode06
+  case mode07
+  case mode08
+  case mode09
+  case mode0A
+  case readiness
+  case freezeFrame
+  public var modeCode: Swift.String {
+    get
+  }
+  public static func == (a: RepairClubSDK.ModeType, b: RepairClubSDK.ModeType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct SDKConfiguration : Swift.Codable {
+  public var id: Foundation.UUID
+  public var devSettingsPairs: [Swift.String : Swift.String]
+  public var autoRequestVehicleObject: Swift.Bool?
+  public var useImperialUnits: Swift.Bool?
+  public var useToast: Swift.Bool?
+  public var vinUnavailable: Swift.Bool?
+  public init(id: Foundation.UUID = UUID(), devSettingsPairs: [Swift.String : Swift.String] = [:], autoRequestVehicleObject: Swift.Bool? = true, useImperialUnits: Swift.Bool? = false, useToast: Swift.Bool? = false, vinUnavailable: Swift.Bool? = false)
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension Foundation.Data {
+  public typealias bit_order_16 = (_ value: Swift.UInt16) -> Swift.UInt16
+  public typealias bit_order_8 = (_ value: Swift.UInt8) -> Swift.UInt8
+  public func straight_16(value: Swift.UInt16) -> Swift.UInt16
+  public func reverse_16(value: Swift.UInt16) -> Swift.UInt16
+  public func straight_8(value: Swift.UInt8) -> Swift.UInt8
+  public func reverse_8(value: Swift.UInt8) -> Swift.UInt8
+  public func crc16(data_order: (_ value: Swift.UInt8) -> Swift.UInt8, remainder_order: (_ value: Swift.UInt16) -> Swift.UInt16, remainder: Swift.UInt16, polynomial: Swift.UInt16) -> Swift.UInt16
+  public func crc16ccitt() -> Swift.UInt16
+  public func crc16ccitt_xmodem() -> Swift.UInt16
+  public func crc16ccitt_kermit() -> Swift.UInt16
+  public func crc16ccitt_1d0f() -> Swift.UInt16
+  public func crc16ibm() -> Swift.UInt16
+  public func crc32() -> Swift.UInt32
+  public func crc8() -> Swift.UInt8
+  public static let crc8Table: [Swift.UInt8]
+}
+extension RepairClubSDK.VehicleInfoRequest.Reason : Swift.Equatable {}
+extension RepairClubSDK.VehicleInfoRequest.Reason : Swift.Hashable {}
+extension RepairClubSDK.ConnectionStage : Swift.Hashable {}
+extension RepairClubSDK.AdvancedOperationType : Swift.Equatable {}
+extension RepairClubSDK.AdvancedOperationType : Swift.Hashable {}
+extension RepairClubSDK.AdvancedOperationType : Swift.RawRepresentable {}
+extension RepairClubSDK.ObdTypeExtended : Swift.Equatable {}
+extension RepairClubSDK.ObdTypeExtended : Swift.Hashable {}
+extension RepairClubSDK.ObdTypeExtended : Swift.RawRepresentable {}
+extension RepairClubSDK.CANBusODBType : Swift.Equatable {}
+extension RepairClubSDK.CANBusODBType : Swift.Hashable {}
+extension RepairClubSDK.CANBusODBType : Swift.RawRepresentable {}
+extension RepairClubSDK.BusType : Swift.Equatable {}
+extension RepairClubSDK.BusType : Swift.Hashable {}
+extension RepairClubSDK.BusType : Swift.RawRepresentable {}
+extension RepairClubSDK.replySidPidMatchEnum : Swift.Equatable {}
+extension RepairClubSDK.replySidPidMatchEnum : Swift.Hashable {}
+extension RepairClubSDK.replySidPidMatchEnum : Swift.RawRepresentable {}
+extension RepairClubSDK.FirmwareUpdateStatus : Swift.Equatable {}
+extension RepairClubSDK.FirmwareUpdateStatus : Swift.Hashable {}
+extension RepairClubSDK.FirmwareUpdateStatus : Swift.RawRepresentable {}
+extension RepairClubSDK.FirmwareReleaseType : Swift.Equatable {}
+extension RepairClubSDK.FirmwareReleaseType : Swift.Hashable {}
+extension RepairClubSDK.FirmwareReleaseType : Swift.RawRepresentable {}
+extension RepairClubSDK.VehiclePowertrainType : Swift.Equatable {}
+extension RepairClubSDK.VehiclePowertrainType : Swift.Hashable {}
+extension RepairClubSDK.VehiclePowertrainType : Swift.RawRepresentable {}
+extension RepairClubSDK.ErrorLevel : Swift.Equatable {}
+extension RepairClubSDK.ErrorLevel : Swift.Hashable {}
+extension RepairClubSDK.ErrorLevel : Swift.RawRepresentable {}
+extension RepairClubSDK.DTCType : Swift.Equatable {}
+extension RepairClubSDK.DTCType : Swift.Hashable {}
+extension RepairClubSDK.DTCType : Swift.RawRepresentable {}
+extension RepairClubSDK.CodeStatus : Swift.Equatable {}
+extension RepairClubSDK.CodeStatus : Swift.Hashable {}
+extension RepairClubSDK.CodeStatus : Swift.RawRepresentable {}
+extension RepairClubSDK.ProcessedState : Swift.Equatable {}
+extension RepairClubSDK.ProcessedState : Swift.Hashable {}
+extension RepairClubSDK.ProcessedState : Swift.RawRepresentable {}
+extension RepairClubSDK.DetailStatus : Swift.Equatable {}
+extension RepairClubSDK.DetailStatus : Swift.Hashable {}
+extension RepairClubSDK.DetailStatus : Swift.RawRepresentable {}
+extension RepairClubSDK.LogMessageType : Swift.Equatable {}
+extension RepairClubSDK.LogMessageType : Swift.Hashable {}
+extension RepairClubSDK.OTAFirmwareUpdateLog.OTAStatus : Swift.Equatable {}
+extension RepairClubSDK.OTAFirmwareUpdateLog.OTAStatus : Swift.Hashable {}
+extension RepairClubSDK.OTAFirmwareUpdateLog.OTAStatus : Swift.RawRepresentable {}
+extension RepairClubSDK.Status : Swift.Equatable {}
+extension RepairClubSDK.Status : Swift.Hashable {}
+extension RepairClubSDK.Status : Swift.RawRepresentable {}
+extension RepairClubSDK.ScanType : Swift.Equatable {}
+extension RepairClubSDK.ScanType : Swift.Hashable {}
+extension RepairClubSDK.ScanType : Swift.RawRepresentable {}
+extension RepairClubSDK.StructuredLogType : Swift.Equatable {}
+extension RepairClubSDK.StructuredLogType : Swift.Hashable {}
+extension RepairClubSDK.StructuredLogType : Swift.RawRepresentable {}
+extension RepairClubSDK.StructeredLogStatus : Swift.Equatable {}
+extension RepairClubSDK.StructeredLogStatus : Swift.Hashable {}
+extension RepairClubSDK.StructeredLogStatus : Swift.RawRepresentable {}
+extension RepairClubSDK.StructeredLogAction : Swift.Equatable {}
+extension RepairClubSDK.StructeredLogAction : Swift.Hashable {}
+extension RepairClubSDK.StructeredLogAction : Swift.RawRepresentable {}
+extension RepairClubSDK.SampleVehicle : Swift.Equatable {}
+extension RepairClubSDK.SampleVehicle : Swift.Hashable {}
+extension RepairClubSDK.SampleVehicle : Swift.RawRepresentable {}
+extension RepairClubSDK.DeviceConnectionState : Swift.Equatable {}
+extension RepairClubSDK.DeviceConnectionState : Swift.Hashable {}
+extension RepairClubSDK.VehicleConnectionState : Swift.Equatable {}
+extension RepairClubSDK.VehicleConnectionState : Swift.Hashable {}
+extension RepairClubSDK.SupportTask.SupportTaskType : Swift.Equatable {}
+extension RepairClubSDK.SupportTask.SupportTaskType : Swift.Hashable {}
+extension RepairClubSDK.TechTip.Quality : Swift.Equatable {}
+extension RepairClubSDK.TechTip.Quality : Swift.Hashable {}
+extension RepairClubSDK.TechTip.Quality : Swift.RawRepresentable {}
+extension RepairClubSDK.ConnectionCommands : Swift.Equatable {}
+extension RepairClubSDK.ConnectionCommands : Swift.Hashable {}
+extension RepairClubSDK.ConnectionCommands : Swift.RawRepresentable {}
+extension UIKit.UIDevice.ScreenType : Swift.Equatable {}
+extension UIKit.UIDevice.ScreenType : Swift.Hashable {}
+extension UIKit.UIDevice.ScreenType : Swift.RawRepresentable {}
+extension RepairClubSDK.DeviceDataMode : Swift.Equatable {}
+extension RepairClubSDK.DeviceDataMode : Swift.Hashable {}
+extension RepairClubSDK.TestRunResult : Swift.Equatable {}
+extension RepairClubSDK.TestRunResult : Swift.Hashable {}
+extension RepairClubSDK.ResponseStatus : Swift.Hashable {}
+extension RepairClubSDK.ResponseStatus : Swift.RawRepresentable {}
+extension RepairClubSDK.RepairClubManager.CacheType : Swift.Equatable {}
+extension RepairClubSDK.RepairClubManager.CacheType : Swift.Hashable {}
+extension RepairClubSDK.AppForegroundState : Swift.Equatable {}
+extension RepairClubSDK.AppForegroundState : Swift.Hashable {}
+extension RepairClubSDK.ConnectionStep : Swift.Equatable {}
+extension RepairClubSDK.ConnectionStep : Swift.Hashable {}
+extension RepairClubSDK.MonitorType : Swift.Equatable {}
+extension RepairClubSDK.MonitorType : Swift.Hashable {}
+extension RepairClubSDK.ValueInRange : Swift.Equatable {}
+extension RepairClubSDK.ValueInRange : Swift.Hashable {}
+extension RepairClubSDK.ModeType : Swift.Equatable {}
+extension RepairClubSDK.ModeType : Swift.Hashable {}

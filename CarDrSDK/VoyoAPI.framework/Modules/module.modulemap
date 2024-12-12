@@ -1,4 +1,0 @@
-framework module VoyoAPI {
-  header "VoyoAPI-Swift.h"
-  requires objc
-}

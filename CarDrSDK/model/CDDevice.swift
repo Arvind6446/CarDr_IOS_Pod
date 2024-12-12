@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import VoyoAPI
+
 
 struct CDDevice {
-    var cdDevice:VoyoDevice?
+
     
 }

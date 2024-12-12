@@ -1,0 +1,11 @@
+framework module RepairClubSDK {
+  umbrella header "RepairClubSDK.h"
+  export *
+
+  module * { export * }
+}
+
+module RepairClubSDK.Swift {
+  header "RepairClubSDK-Swift.h"
+  requires objc
+}
