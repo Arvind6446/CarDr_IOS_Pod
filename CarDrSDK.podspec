@@ -30,7 +30,7 @@ Pod::Spec.new do |spec|
   spec.public_header_files = "CarDrSDK/**/*.h"
 
   # ――― Vendor Frameworks ――――――――――――――――――――――――――――――――――――――――――――――――――――――
- spec.vendored_frameworks = '/Users/arvindmehta/Downloads/CarDr_IOS_Pod/CarDrSDK/RepairClubSDK.framework'
+ spec.vendored_frameworks = "Users/arvindmehta/Downloads/CarDr_IOS_Pod/CarDrSDK/RepairClubSDK.framework"
 
   # ――― Dependencies ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――
   spec.dependency "Alamofire", "~> 5.6.4"
