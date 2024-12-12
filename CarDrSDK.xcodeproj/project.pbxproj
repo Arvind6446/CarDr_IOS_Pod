@@ -16,12 +16,6 @@
 		E275401229F2FE7700774987 /* CarDrSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275401129F2FE7700774987 /* CarDrSDKTests.swift */; };
 		E275401329F2FE7700774987 /* CarDrSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = E275400529F2FE7700774987 /* CarDrSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E275402429F2FF0400774987 /* CarDrConnectionApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402329F2FF0400774987 /* CarDrConnectionApi.swift */; };
-		E275402C29F2FF2B00774987 /* CDUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402629F2FF2B00774987 /* CDUser.swift */; };
-		E275402D29F2FF2B00774987 /* CDUserAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402729F2FF2B00774987 /* CDUserAccount.swift */; };
-		E275402E29F2FF2B00774987 /* CDCallback.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402829F2FF2B00774987 /* CDCallback.swift */; };
-		E275402F29F2FF2B00774987 /* CDAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402929F2FF2B00774987 /* CDAPI.swift */; };
-		E275403029F2FF2B00774987 /* CDScanResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402A29F2FF2B00774987 /* CDScanResponse.swift */; };
-		E275403129F2FF2B00774987 /* CDDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E275402B29F2FF2B00774987 /* CDDevice.swift */; };
 		E2B6D0DC29FC031B008CAC1C /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = E2B6D0DB29FC031B008CAC1C /* Alamofire */; };
 		E2B6D10129FC1B63008CAC1C /* SwiftyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = E2B6D10029FC1B63008CAC1C /* SwiftyJSON */; };
 /* End PBXBuildFile section */
@@ -64,12 +58,6 @@
 		E275401129F2FE7700774987 /* CarDrSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarDrSDKTests.swift; sourceTree = "<group>"; };
 		E275401D29F2FEA900774987 /* VoyoAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VoyoAPI.framework; path = ../../Downloads/VoyoAPI.framework; sourceTree = "<group>"; };
 		E275402329F2FF0400774987 /* CarDrConnectionApi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarDrConnectionApi.swift; sourceTree = "<group>"; };
-		E275402629F2FF2B00774987 /* CDUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDUser.swift; sourceTree = "<group>"; };
-		E275402729F2FF2B00774987 /* CDUserAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDUserAccount.swift; sourceTree = "<group>"; };
-		E275402829F2FF2B00774987 /* CDCallback.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDCallback.swift; sourceTree = "<group>"; };
-		E275402929F2FF2B00774987 /* CDAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDAPI.swift; sourceTree = "<group>"; };
-		E275402A29F2FF2B00774987 /* CDScanResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDScanResponse.swift; sourceTree = "<group>"; };
-		E275402B29F2FF2B00774987 /* CDDevice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDevice.swift; sourceTree = "<group>"; };
 		F0AF94E162A8C7CAC0D67C8F /* Pods-CarDrSDK-CarDrSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CarDrSDK-CarDrSDKTests.release.xcconfig"; path = "Target Support Files/Pods-CarDrSDK-CarDrSDKTests/Pods-CarDrSDK-CarDrSDKTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -161,12 +149,6 @@
 		E275402529F2FF1C00774987 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				E275402929F2FF2B00774987 /* CDAPI.swift */,
-				E275402829F2FF2B00774987 /* CDCallback.swift */,
-				E275402B29F2FF2B00774987 /* CDDevice.swift */,
-				E275402A29F2FF2B00774987 /* CDScanResponse.swift */,
-				E275402629F2FF2B00774987 /* CDUser.swift */,
-				E275402729F2FF2B00774987 /* CDUserAccount.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -374,14 +356,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E275403129F2FF2B00774987 /* CDDevice.swift in Sources */,
-				E275402C29F2FF2B00774987 /* CDUser.swift in Sources */,
-				E275402E29F2FF2B00774987 /* CDCallback.swift in Sources */,
-				E275402D29F2FF2B00774987 /* CDUserAccount.swift in Sources */,
-				E275403029F2FF2B00774987 /* CDScanResponse.swift in Sources */,
 				E275400729F2FE7700774987 /* CarDrSDK.docc in Sources */,
 				E275402429F2FF0400774987 /* CarDrConnectionApi.swift in Sources */,
-				E275402F29F2FF2B00774987 /* CDAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
